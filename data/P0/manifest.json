@@ -1,0 +1,56 @@
+{
+  "pack": "P0",
+  "contract": "raw-v1",
+  "files": [
+    {
+      "path": "sales.csv",
+      "table": "src.SalesRaw",
+      "contract": "sales-raw-v1",
+      "rows": 191225,
+      "sha256": "a9dd8923b8c8cc7b617d3948ba1918e7d68f54e369e986a004694ecd6e5da4ec",
+      "columns": [
+        "TransactionNo",
+        "LineNumber",
+        "SalesDate",
+        "SKU",
+        "StoreCode",
+        "Quantity",
+        "UnitPrice",
+        "DiscountAmount",
+        "SourceFile"
+      ]
+    },
+    {
+      "path": "inventory.csv",
+      "table": "src.InventoryRaw",
+      "contract": "inventory-raw-v1",
+      "rows": 82956,
+      "sha256": "4f441b0a53417adabaabadbc44129183b810a06d2059d0df77191a5d077979ea",
+      "columns": [
+        "SnapshotDate",
+        "SKU",
+        "StoreCode",
+        "StockQuantity",
+        "SourceFile"
+      ]
+    },
+    {
+      "path": "returns.csv",
+      "table": "src.ReturnsRaw",
+      "contract": "returns-raw-v1",
+      "rows": 13750,
+      "sha256": "2c2cc36e2b3e0b675eb28dbbf9b3de02fd950d9ad0bae59cdc0bac3f64846218",
+      "columns": [
+        "ReturnNo",
+        "TransactionNo",
+        "ReturnDate",
+        "SKU",
+        "StoreCode",
+        "Quantity",
+        "ReturnAmount",
+        "ReturnReason",
+        "SourceFile"
+      ]
+    }
+  ]
+}
