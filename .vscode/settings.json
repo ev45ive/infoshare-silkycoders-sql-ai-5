@@ -1,0 +1,27 @@
+{
+    "mssql.connections": [
+        {
+            "server": "127.0.0.1,14332",
+            "database": "RetailDW_Workshop",
+            "user": "sa",
+            // "password": "",
+            "authenticationType": "SqlLogin",
+            "encrypt": "False",
+            "trustServerCertificate": true,
+            "connectTimeout": 30,
+            "commandTimeout": 30,
+            "connectRetryCount": 1,
+            "connectRetryInterval": 10,
+            "applicationName": "vscode-mssql",
+            "profileName": "RetailDW",
+            "savePassword": true,
+            "groupId": "ROOT",
+            "id": "412846ae-f8bf-4188-8052-c042e26c8bfb",
+            "containerName": "nordvik-retaildw-starter-mssql-1"
+        }
+    ],
+    "specstory.cloudSync.enabled": "never",
+    "chat.editor.localAgent.enabled": true,
+    "chat.defaultToCopilotHarness": false,
+    "chat.editor.preferCopilotHarness": false,
+}
