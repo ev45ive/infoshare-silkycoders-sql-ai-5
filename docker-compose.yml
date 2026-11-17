@@ -1,0 +1,18 @@
+name: nordvik-retaildw-starter
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2022-latest@sha256:2b5b581621126574f3d1f75e78d3eebe8d05aedb59ad0cfdf9aa42cb0634d726
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: Developer
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:?Set the local workshop value in .env}
+    ports:
+      - "127.0.0.1:${MSSQL_PORT:-14332}:1433"
+    volumes:
+      - retaildw-starter-data:/var/opt/mssql
+      - ./mssql.conf:/var/opt/mssql/mssql.conf:ro
+    restart: unless-stopped
+
+volumes:
+  retaildw-starter-data:

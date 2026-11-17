@@ -1,0 +1,6 @@
+# .env contains an explicitly local workshop-only value and is included in the starter commit.
+# Replace it before using any non-workshop system. Never copy a real service credential here.
+**/bin/
+**/obj/
+*.bak
+*.log
