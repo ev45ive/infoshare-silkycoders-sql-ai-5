@@ -3495,3 +3495,1034 @@ Zaktualizowano AGENTS.md:
 - Dodano ostrzeżenie, że `sql-style-guide.md` opisuje konwencje legacy.
 
 Odsyłacze i ścieżki zweryfikowano. Zmiany nie są zacommitowane.
+
+---
+
+_**User (2026-11-17 12:55:28Z)**_
+
+jw. dołącz do agents warunkowe ładowanie/prezszukiwanie metryk, wydobądź warunkowe instrukcje z opisu firmy istotne dla konkretych zadań  
+
+---
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:57:57Z)**_
+
+Zacznę od przeczytania obu dokumentów, które wskazałeś.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:57:57Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md`
+
+**Result:**
+
+```
+File too large to read at once (8.2 KB). Consider using the grep tool to search within the file, or view with view_range to read specific sections.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:57:57Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\nordvik-opis-firmy.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\nordvik-opis-firmy.md`
+
+**Result:**
+
+```
+File too large to read at once (19.1 KB). Consider using the grep tool to search within the file, or view with view_range to read specific sections.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:05Z)**_
+
+Pliki są za duże na jeden odczyt, więc czytam je w częściach.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:05Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md`
+- view_range: `[1,111]`
+
+**Result:**
+
+```
+# Słownik metryk Nordvik
+
+Definicje używane w raportach sprzedaży, rentowności i zapasu. Kwoty podajemy w PLN, a udziały i dynamiki w procentach. Metryki liczymy dla wskazanego okresu i przekroju; jeśli w mianowniku jest zero, wynik wskaźnika pozostaje pusty.
+
+Nazwy w kolumnie „Źródło” dotyczą bazy PostgreSQL `retaildw` (`databases/RetailDW-postgres/`): wymiary i fakty są w schemacie `dw`, widoki raportowe w `reporting`. Dawne nazwy z SQL Server (`dbo.FactSales` itd.) są zebrane w sekcji „Mapowanie nazw” na końcu.
+
+## Sprzedaż
+
+| Metryka | Definicja | Źródło |
+| --- | --- | --- |
+| **Sprzedaż brutto** | Wartość sprzedanego towaru z VAT, po rabacie. | `fact_sales.gross_amount` |
+| **Rabat** | Kwota obniżki udzielonej na pozycjach sprzedaży. | `fact_sales.discount_amount` |
+| **Sprzedaż netto** | Sprzedaż brutto bez VAT; dla odzieży obowiązuje 23% VAT. | `fact_sales.net_amount` |
+| **Sztuki** | Liczba sprzedanych sztuk. | `fact_sales.quantity` |
+| **Wartość przed rabatem** | Wartość towaru według ceny sprzedaży przed obniżką, z VAT. | `SUM(fact_sales.quantity * fact_sales.unit_price)` |
+| **Stopa rabatu** | Rabat / wartość przed rabatem. | `fact_sales` |
+| **Średnia cena netto sztuki** | Sprzedaż netto / sztuki. | `fact_sales` |
+| **Udział kanału w sprzedaży** | Sprzedaż netto kanału / sprzedaż netto wszystkich kanałów w tym samym okresie. | `fact_sales` + `dim_store.channel` |
+| **Zmiana sprzedaży tydzień do tygodnia** | (Sprzedaż netto bieżącego pełnego tygodnia − sprzedaż netto poprzedniego pełnego tygodnia) / sprzedaż netto poprzedniego tygodnia; oba tygodnie w tym samym przekroju. | `fact_sales` + `dim_date` |
+| **Sprzedaż po zwrotach netto** | Sprzedaż netto − wartość zwrotów bez VAT przyjętych w tym okresie. | `fact_sales.net_amount`, `fact_returns.return_amount` |
+| **Aktywne SKU** | Liczba różnych SKU sprzedanych w okresie. | `fact_sales.product_key` |
+| **Sztuki na aktywne SKU** | Sztuki / liczba aktywnych SKU. | `fact_sales` |
+
+W rapo
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:05Z)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep"><details>
+<summary>Tool use: **grep**</summary>
+
+^#{1,4}
+
+**Input:**
+
+- -n: `true`
+- output_mode: `content`
+- paths:
+
+```
+[
+  "C:\\Users\\teamsharq\\Desktop\\infoshare-silkycoders-sql-ai-5\\docs\\nordvik-opis-firmy.md"
+]
+```
+
+- pattern: `^#{1,4} `
+
+**Result:**
+
+```
+[grep content: 31 matches across 1 file(s) under C:/Users/teamsharq/Desktop/infoshare-silkycoders-sql-ai-5/docs]
+
+nordvik-opis-firmy.md (31 match(es)):
+  1: # Nordvik — opis firmy i modelu działania
+  3: ## Spis treści
+  19: ## 1. Profil firmy
+  33: ## 2. Model biznesowy
+  35: ### 2.1 Łańcuch wartości
+  52: ### 2.2 Co firma zarabia i co ją kosztuje
+  62: ### 2.3 Cykl życia produktu w sezonie
+  71: ### 2.4 Kanały
+  82: ## 3. Sklepy i kanały
+  97: ## 4. Asortyment i produkt
+  99: ### 4.1 Hierarchia produktu
+  108: ### 4.2 Zasady asortymentu
+  118: ## 5. Organizacja i odpowiedzialności
+  136: ## 6. Rytm pracy firmy
+  151: ## 7. Dane: źródła i hurtownia
+  153: ### 7.1 Systemy źródłowe
+  162: ### 7.2 Warstwy hurtowni
+  174: ### 7.3 Model gwiazdy
+  199: ### 7.4 Zasady łączenia danych
+  207: ### 7.5 Czego w hurtowni nie ma
+  216: ### 7.6 Jakość danych w praktyce
+  226: ## 8. Metryki
+  247: ## 9. Data Science w Nordvik
+  251: ### 9.1 Podział ról
+  262: ### 9.2 Obszary pracy Data Science
+  282: ### 9.3 Jak wygląda projekt Data Science
+  291: ### 9.4 Ograniczenia, które wszyscy znają
+  300: ## 10. Słownik pojęć
+  324: ## 11. Założenia i źródła
+  326: ### 11.1 Co jest założeniem
+  333: ### 11.2 Skąd wzięto opis
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:13Z)**_
+
+Słownik ucięto po linii 110, a opis firmy jest długi. Czytam resztę słownika i sekcje opisu istotne dla zadań: dane, metryki, słownik pojęć i założenia.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:15Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md`
+- view_range: `[110,111]`
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:15Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\nordvik-opis-firmy.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\nordvik-opis-firmy.md`
+- view_range: `[151,246]`
+
+**Result:**
+
+````
+## 7. Dane: źródła i hurtownia
+
+### 7.1 Systemy źródłowe
+
+| System | Co wystawia | Plik | Tabela wejściowa |
+| --- | --- | --- | --- |
+| POS (kasy w sklepach) | Pozycje paragonów ze sklepów stacjonarnych | `POS_yyyymmdd.csv` | `src.sales_raw` |
+| Sklep internetowy | Pozycje zamówień online | `WEB_yyyymmdd.csv` | `src.sales_raw` |
+| WMS (magazyn) | Stany na koniec dnia, osobny plik na dzień | `WMS_yyyymmdd.csv` | `src.inventory_raw` |
+| Portal zwrotów | Przyjęte zwroty | `RET_yyyymm.csv` | `src.returns_raw` |
+
+### 7.2 Warstwy hurtowni
+
+Dane płyną w jedną stronę: `src` → `stg` → `dw` → `reporting`. Hurtownia działa w PostgreSQL (baza `retaildw`, projekt `databases/RetailDW-postgres/`). Dawne nazwy z SQL Server (`dbo.FactSales` itd.) są w sekcji „Mapowanie nazw” w `slownik-metryk.md`.
+
+| Schemat | Zawartość | Uwaga |
+| --- | --- | --- |
+| `src` | Dane takie, jak przysłał system źródłowy. Wszystko tekstowe, bez walidacji | Źródło prawdy o tym, co przyszło |
+| `stg` | Dane po konwersji typów | Wiersze, których nie da się przekonwertować, odpadają |
+| `dw` | Wymiary i fakty | Właściwa hurtownia |
+| `reporting` | Widoki raportowe | Warstwa, z której korzysta biznes |
+| `etl` | Procedury ładujące | Pełne przeładowanie przy każdym uruchomieniu |
+
+### 7.3 Model gwiazdy
+
+```mermaid
+erDiagram
+    dim_date ||--o{ fact_sales : "date_key"
+    dim_product ||--o{ fact_sales : "product_key"
+    dim_store ||--o{ fact_sales : "store_key"
+    dim_date ||--o{ fact_inventory_daily : "date_key"
+    dim_product ||--o{ fact_inventory_daily : "product_key"
+    dim_store ||--o{ fact_inventory_daily : "store_key"
+    dim_date ||--o{ fact_returns : "date_key"
+    dim_product ||--o{ fact_returns : "product_key"
+    dim_store ||--o{ fact_returns : "store_key"
+```
+
+| Tabela | Typ | Ziarno (jeden wiersz to…) | Najważniejsze kolumny |
+| --- | --- | --- | --- |
+| `dw.dim_date` | Wymiar | Dzień | `date_key`, `full_date`, `year_week` (np. `2026-W38`), `year_month`
+… (output truncated)
+````
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:15Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\nordvik-opis-firmy.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\nordvik-opis-firmy.md`
+- view_range: `[247,344]`
+
+**Result:**
+
+```
+## 9. Data Science w Nordvik
+
+Analityk odpowiada na pytanie „co się stało i dlaczego?". Data Science odpowiada na pytania „co się stanie?", „co da lepszy wynik?" i „czy to naprawdę zadziałało?".
+
+### 9.1 Podział ról
+
+| Działanie | Analityk | Data Scientist | Data Engineer |
+| --- | --- | --- | --- |
+| Pytanie „co się stało?" | Główny wykonawca | Wsparcie | Dostarcza dane |
+| Pytanie „co się stanie?" | Ocena wyniku | Główny wykonawca | Dostarcza dane |
+| Definicje metryk | Współtworzy | Używa | Wdraża w hurtowni |
+| Jakość i ładowanie danych | Zgłasza problemy | Zgłasza problemy | Główny wykonawca |
+| Wdrożenie i monitoring modelu | Sprawdza wynik | Główny wykonawca | Wspólnie |
+| Raport dla biznesu | Główny wykonawca | Dostarcza wynik modelu | Nie dotyczy |
+
+### 9.2 Obszary pracy Data Science
+
+| # | Obszar | Problem biznesowy | Dane wejściowe | Wynik dla biznesu | Status dziś |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Prognoza popytu | Ile sztuk modelu sprzedamy w sklepie w ciągu 4 tygodni? | `fact_sales`, `dim_date`, `dim_product`, `dim_store` | Prognoza na tydzień × SKU × sklep. Podstawa zakupów i alokacji | Możliwe z tabel faktów |
+| 2 | Prognoza sell-through i moment przeceny | Czy zapas dojdzie do końca sezonu? Kiedy obniżyć cenę? | `fact_sales`, `fact_inventory_daily` | Data i poziom rabatu dla modelu | Możliwe dla bieżącego sezonu |
+| 3 | Elastyczność cenowa | O ile spadnie popyt przy −20%? | `fact_sales.unit_price`, `discount_amount`, `quantity` | Krzywa popytu i rekomendacja rabatu | Możliwe. Trzeba odsiać sezonowość |
+| 4 | Krzywa rozmiarów i alokacja | Jaki udział każdego rozmiaru zamówić i rozdać do sklepów? | `fact_sales`, `fact_inventory_daily`, `dim_product.size` | Proporcje rozmiarów dla sklepu i kanału | Możliwe |
+| 5 | Uzupełnianie zapasu | Kiedy i ile dosłać do sklepu? | `fact_inventory_daily`, prognoza popytu | Minimalny i docelowy stan dla SKU × sklep | Częściowo. Brak danych o dostawach |
+| 6 | Prognoza zwrotów | Któr
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:35Z)**_
+
+Przeczytałem słownik oraz sekcje 7–11 opisu firmy. Brakuje sekcji 1–6 (profil, model biznesowy, sklepy, asortyment, rytm pracy), a w nich mogą być reguły potrzebne do zadań. Dodatkowo sprawdzam dwie rzeczy: czy istnieje wersja PostgreSQL wskazana w słowniku oraz czy definicja sezonów zgadza się z seedem kalendarza.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:40Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\nordvik-opis-firmy.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\nordvik-opis-firmy.md`
+- view_range: `[1,150]`
+
+**Result:**
+
+````
+# Nordvik — opis firmy i modelu działania
+
+## Spis treści
+
+1. Profil firmy
+2. Model biznesowy
+3. Sklepy i kanały
+4. Asortyment i produkt
+5. Organizacja i odpowiedzialności
+6. Rytm pracy firmy
+7. Dane: źródła i hurtownia
+8. Metryki
+9. Data Science w Nordvik
+10. Słownik pojęć
+11. Założenia i źródła
+ dasd
+---
+
+## 1. Profil firmy
+
+| Obszar | Opis |
+| --- | --- |
+| Branża | Moda odzieżowa, sieć z własną ofertą (model *own brand*) |
+| Sklepy stacjonarne | 5 |
+| Sklep internetowy | 1 (kanał `ONLINE`) |
+| Asortyment | Odzież damska i męska, akcesoria. Ok. 120 SKU (uproszczenie: prawdziwa sieć ma ich wielokrotnie więcej) |
+| Sezony | `SS` (luty–lipiec) i `AW` (sierpień–styczeń), np. `AW26` |
+| Waluta i VAT | PLN. VAT 23% na odzież |
+| Historia danych | Sprzedaż od stycznia 2025. Stany magazynowe i zwroty za bieżący sezon |
+
+---
+
+## 2. Model biznesowy
+
+### 2.1 Łańcuch wartości
+
+```mermaid
+flowchart LR
+    A["Projekt kolekcji<br/>(zespół designu)"] --> B["Planowanie i zakupy<br/>(merchandising)"]
+    B --> C["Produkcja<br/>(zewnętrzni dostawcy)"]
+    C --> D["Magazyn centralny<br/>(WMS)"]
+    D --> E["Dostawy do sklepów"]
+    D --> F["Sklep internetowy"]
+    E --> G["Sprzedaż w sklepach"]
+    F --> H["Sprzedaż online"]
+    G --> I["Zwroty"]
+    H --> I
+    G --> J["Promocje i wyprzedaż"]
+    H --> J
+```
+
+### 2.2 Co firma zarabia i co ją kosztuje
+
+- **Marża z własnego projektu.** Nordvik projektuje i zleca produkcję. Nie handluje cudzymi markami.
+- **Zysk zależy od trzech rzeczy:**
+  - trafności zakupu (ile z dostawy sprzedano przy pełnej cenie),
+  - utrzymania ceny (ile oddano w rabatach),
+  - kosztu zwrotów (szczególnie online).
+- **Niesprzedany towar na koniec sezonu** = przecena lub wyprzedaż poniżej kosztu pozyskania marży.
+- **Rozmiary.** Popyt skupia się na M i L. XS i XL to typowe ryzyko nadmiaru (*założenie zgodne z praktyką branży*).
+
+### 2.3 Cykl życia produktu w sezonie
+
+| Etap | Cena | Cel | Czas trwani
+… (output truncated)
+````
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:40Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="powershell"><details>
+<summary>Tool use: **powershell**</summary>
+
+Check postgres folder and season logic in seed
+
+```powershell
+cd "C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5"; Test-Path databases; Get-ChildItem -Recurse -Depth 2 -Directory -ErrorAction SilentlyContinue | Where-Object { $_.FullName -match 'postgres' } | Select-Object -ExpandProperty FullName; Select-String -Path RetailDW\Scripts\Seed\00-DimDate.sql -Pattern 'Season' | ForEach-Object { $_.Line.Trim() }; Select-String -Path RetailDW\Scripts\Seed\00-DimDate.sql -Pattern 'SS|AW' | Select-Object -First 6 | ForEach-Object { $_.Line.Trim() }
+```
+
+**Result:**
+
+```text
+False
+[IsoYear], [IsoWeek], [YearWeek], [DayOfWeek], [DayName], [IsWeekend], [Season])
+-- Retail seasons: spring/summer runs February-July, autumn/winter August-January.
+CROSS JOIN sys.all_objects AS b
+THEN CONCAT(N'SS', RIGHT(CAST(DATEPART(YEAR, c.[Date]) AS NVARCHAR (4)), 2))
+THEN CONCAT(N'AW', RIGHT(CAST(DATEPART(YEAR, c.[Date]) - 1 AS NVARCHAR (4)), 2))
+ELSE CONCAT(N'AW', RIGHT(CAST(DATEPART(YEAR, c.[Date]) AS NVARCHAR (4)), 2))
+<shellId: 43 completed with exit code 0>
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:56Z)**_
+
+Dokumenty są spójne z repo w większości, ale wskazują bazę PostgreSQL (`databases/RetailDW-postgres/`), której w repo nie ma. Projekt to SQL Server. Nie zgaduję mapowania, tylko opisuję tę rozbieżność w instrukcjach. Sprawdzam jeszcze, czy definicja marży w słowniku zgadza się z widokiem `vw_MarginAnalysis`, bo to ważne dla analityków.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:58:56Z)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep"><details>
+<summary>Tool use: **grep**</summary>
+
+GrossMargin|CostAmount|NetAmount\]
+
+**Input:**
+
+- -n: `true`
+- output_mode: `content`
+- paths:
+
+```
+[
+  "C:\\Users\\teamsharq\\Desktop\\infoshare-silkycoders-sql-ai-5\\RetailDW\\Views\\reporting.vw_MarginAnalysis.sql"
+]
+```
+
+- pattern: `GrossMargin|CostAmount|NetAmount\]`
+
+**Result:**
+
+```
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\RetailDW\Views\reporting.vw_MarginAnalysis.sql:14:        SUM(f.[NetAmount])                  AS [NetRevenue],
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\RetailDW\Views\reporting.vw_MarginAnalysis.sql:15:        SUM(f.[Quantity] * f.[UnitCost])    AS [CostAmount],
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\RetailDW\Views\reporting.vw_MarginAnalysis.sql:16:        SUM(f.[NetAmount]) - SUM(f.[Quantity] * f.[UnitCost]) AS [GrossMargin],
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\RetailDW\Views\reporting.vw_MarginAnalysis.sql:17:        CASE WHEN SUM(f.[NetAmount]) = 0 THEN NULL
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\RetailDW\Views\reporting.vw_MarginAnalysis.sql:18:             ELSE CAST(100.0 * (SUM(f.[NetAmount]) - SUM(f.[Quantity] * f.[UnitCost]))
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\RetailDW\Views\reporting.vw_MarginAnalysis.sql:19:                       / SUM(f.[NetAmount]) AS DECIMAL (5, 2))
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\RetailDW\Views\reporting.vw_MarginAnalysis.sql:20:        END                                 AS [GrossMarginPct]
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:17Z)**_
+
+Rozbieżność jest istotna: widok liczy marżę jako `NetAmount − COGS` (bez zwrotów), a słownik i opis firmy definiują ją jako `NetAmount − COGS − zwroty netto`. Tego nie zmieniam w kodzie, bo nie było to zadanie. Zapisuję to w instrukcji jako pułapkę.
+
+Teraz tworzę instrukcje warunkowe dla metryk i opisu firmy oraz dopisuję je do `AGENTS.md`.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:18Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="create"><details>
+<summary>Tool use: **create**</summary>
+
+create a new file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-metryki.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-metryki.instructions.md`
+
+```markdown
+---
+description: "Definicje metryk Nordvik (sprzedaż, rentowność, zapas, zwroty, kalendarz) i ich pułapki przy liczeniu w SQL."
+applyTo: "RetailDW/Views/**,docs/slownik-metryk.md"
+---
+
+# Nordvik – metryki
+
+Źródło pełne: [slownik-metryk.md](../../docs/slownik-metryk.md). Ta instrukcja to skrót reguł do liczenia w SQL. Gdy użytkownik pyta o konkretną metrykę, otwórz słownik tylko w tej części, której dotyczy pytanie.
+
+## Domyślne znaczenia słów
+
+| Słowo w pytaniu | Znaczy |
+|---|---|
+| „sprzedaż” | Sprzedaż netto (`NetAmount`), przed odjęciem zwrotów |
+| „sprzedaż brutto” | `GrossAmount`, z VAT, po rabacie. Gdy pytanie o kwotę zapłaconą przez klienta |
+| „marża” | Marża brutto po zwrotach, patrz niżej |
+
+## Sprzedaż
+
+- Sprzedaż netto = `NetAmount` (VAT 23%, `GrossAmount / 1.23`).
+- Sprzedaż netto po zwrotach = sprzedaż netto − `return_amount / 1.23` z tego samego okresu.
+- Wartość przed rabatem = `SUM(quantity * unit_price)`, z VAT.
+- Stopa rabatu = rabat / wartość przed rabatem.
+- Udział kanału = sprzedaż netto kanału / sprzedaż netto wszystkich kanałów w tym samym okresie.
+- Aktywne SKU = `COUNT(DISTINCT product_key)` w okresie. Sztuki na aktywne SKU = sztuki / aktywne SKU.
+- Zmiana tydzień do tygodnia: oba tygodnie pełne i w tym samym przekroju.
+
+## Rentowność
+
+- Koszt własny (COGS) = `SUM(quantity * unit_cost)`.
+- Marża brutto = sprzedaż netto − COGS − wartość zwrotów netto przyjętych w tym samym okresie.
+- Marża % = marża brutto / sprzedaż netto.
+- Zwroty obniżają marżę okresu **przyjęcia**, nie okresu sprzedaży.
+
+Pułapka: `reporting.vw_MarginAnalysis` liczy `GrossMargin` jako sprzedaż netto − COGS, **bez zwrotów**. Nie jest to zgodne ze słownikiem. Przy pytaniu o marżę zgodną z definicją firmy nie używaj wyniku tego widoku wprost. Zgłoś rozbieżność.
+
+## Transakcje i koszyk
+
+- Liczba transakcji = `COUNT(DISTINCT transaction_no)`. Nie `COUNT(*)`, bo to liczba pozycji.
+- Średni koszyk = sprzedaż netto / liczba transakcji.
+- UPT = sztuki / liczba transakcji.
+
+## Produktywność sklepu
+
+- Przychód na m² = sprzedaż netto / powierzchnia. Tylko sklepy `STORE`. Online nie ma powierzchni.
+- `sales_area_m2` to bieżący metraż. Przy porównaniu sprzed i po przebudowie obie strony dziel przez bieżący metraż i opisz to w wyniku.
+
+## Zapas i dostępność
+
+- Stan magazynowy = `stock_quantity` na koniec dnia dla SKU × sklep. To migawka: nie sumuj stanów z kolejnych dni.
+- Dostępność = SKU ze stanem > 0 / SKU objęte feedem zapasu tego dnia i sklepu. Nie cały katalog.
+- Sell-through = sprzedane w sezonie / (sprzedane w sezonie + stan na koniec okresu). Tylko w obrębie jednego sezonu. Feed zapasu obejmuje tylko bieżący sezon.
+- Wartość zapasu w koszcie = stan × bieżący `unit_cost` z wymiaru. Nie jest to wycena księgowa.
+- Różnica dwóch migawek to nie sprzedaż: wpływają dostawy i przesunięcia, których nie ma w hurtowni.
+
+## Zwroty
+
+- Wskaźnik zwrotów = sztuki zwrócone / sztuki sprzedane, w tym samym okresie i przekroju.
+- Wartość zwrotów netto = `return_amount / 1.23`. `return_amount` jest z VAT.
+- Powody: `DAMAGED`, `WRONG_SIZE`, `CHANGED_MIND`, `OTHER`.
+- Data i sklep zwrotu to przyjęcie, nie sprzedaż. Kanały porównuj osobno.
+
+## Kalendarz
+
+- Tydzień handlowy: ISO-8601, poniedziałek–niedziela. Format `year_week`, np. `2026-W24`.
+- Grupuj tygodnie po `iso_year` + `iso_week`. Nigdy `calendar_year` z `iso_week`.
+- Sezon: `SS` = luty–lipiec, `AW` = sierpień–styczeń. `AW26` obejmuje sierpień 2025–styczeń 2026 (zgodnie z logiką seeda `DimDate`).
+
+## Wymagania przy odpowiedzi
+
+- Podaj, która definicja została użyta (sprzedaż netto vs brutto, z zwrotami czy bez).
+- Jeśli mianownik wynosi zero, wskaźnik jest pusty (NULL). Nie zamieniaj go na 0.
+- Kwoty w PLN, udziały i dynamiki w %.
+```
+
+**Result:**
+
+```
+Created file C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-metryki.instructions.md with 3795 characters
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:18Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="create"><details>
+<summary>Tool use: **create**</summary>
+
+create a new file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md`
+
+```markdown
+---
+description: "Kontekst biznesowy Nordvik (sklepy, asortyment, sezony, kanały, rytm pracy, ograniczenia danych) do interpretacji pytań i wyników."
+applyTo: "docs/nordvik-opis-firmy.md,RetailDW/Views/**,RetailDW/Tables/**"
+---
+
+# Nordvik – kontekst biznesowy
+
+Pełny opis: [nordvik-opis-firmy.md](../../docs/nordvik-opis-firmy.md). Ta instrukcja zawiera tylko to, co zmienia interpretację danych. Sekcje opisu wskazane poniżej otwieraj wyłącznie, gdy pytanie tego wymaga.
+
+## Co wczytać do jakiego zadania
+
+| Zadanie | Sekcja opisu |
+|---|---|
+| Pytanie o sklep, kanał, region | 3. Sklepy i kanały |
+| Pytanie o produkt, model, SKU, rozmiar | 4. Asortyment i produkt |
+| Pytanie „kto za to odpowiada” | 5. Organizacja |
+| Pytanie o porę roku, tydzień, raport cykliczny | 6. Rytm pracy firmy |
+| Pytanie o źródła, warstwy, model gwiazdy | 7. Dane: źródła i hurtownia |
+| Pytanie o zakres danych, braki, jakość | 7.5 i 7.6 |
+| Model predykcyjny, prognoza, data science | 9. Data Science |
+| Nieznany termin | 10. Słownik pojęć |
+
+## Profil
+
+- Sieć odzieżowa własnego projektu (*own brand*), PLN, VAT 23%.
+- 5 sklepów `STORE` i 1 sklep `ONLINE`.
+- Ok. 120 SKU (uproszczenie, nie cały asortyment).
+- Sprzedaż od stycznia 2025. Stany i zwroty tylko za bieżący sezon.
+
+## Sklepy
+
+- Powierzchnia w hurtowni to bieżący metraż.
+- Kraków Rynek: 180 m² do marca 2026, 320 m² od kwietnia 2026. Porównania sprzed i po przebudowie wymagają opisu tej zmiany.
+- Online nie ma powierzchni i nie jest w scorecardzie sklepu.
+
+## Asortyment
+
+- Hierarchia: dział (WOMEN/MEN/UNISEX) → kategoria → `StyleCode` → SKU (model × kolor × rozmiar).
+- Rozmiary `XS`, `S`, `M`, `L`, `XL`. Akcesoria: `ONE`.
+- Kolekcje: np. `AW25`, `SS26`, `AW26`.
+- `ListPrice` jest bieżący i z VAT. `unit_cost` jest kopiowany na pozycję sprzedaży.
+
+## Sezony i cykl przeceny
+
+- Sezon jest w wymiarze `dim_date` (kolumna `season`).
+- Cykl: wejście (pełna cena, 4–6 tyg.), sezon podstawowy (do ok. 8 tyg.), rabat sezonowy (−20% do −30%, 2–3 tyg.), wyprzedaż końcowa (−40% do −60%).
+- Czas trwania etapów to założenie, nie dane.
+
+## Kanały
+
+- Sklepy: ok. 78% przychodu, zwroty ok. 4% sztuk (orientacyjnie).
+- Online: ok. 22% przychodu, zwroty ok. 18% sztuk (orientacyjnie).
+- Kanały porównuj osobno. Wyższe zwroty online to cecha kanału.
+
+## Ograniczenia danych (ważne przy wnioskach)
+
+- Brak danych o kliencie: nie ma ID klienta, karty ani konta. Analiz klientów (segmentacja, RFM, odejścia) nie da się zrobić z tego zbioru.
+- Brak dostaw i przesunięć między sklepami. Stany to wynik, nie przyczyna.
+- Brak historii cen (jest cena na pozycji, nie cennik).
+- Brak danych z sesji web i lejka e-commerce.
+- Brak historii metrażu sklepu.
+- Ponowne wgranie pliku może zduplikować wiersze.
+- Plik stanów bywa niekompletny (brak pliku za dzień).
+- Zwroty są księgowane w dniu przyjęcia.
+- Nazwa widoku nie zawsze oznacza to, co liczy. Sprawdź definicję w pliku widoku.
+
+## Założenia do oznaczenia w wyniku
+
+- Udziały kanałów, wskaźniki zwrotów, czasy etapów cyklu i sezon lutowy jako dołek są **orientacyjne**. Oznacz je tak w odpowiedzi.
+- Nazwy sklepów i metraż wymagają potwierdzenia przed publikacją.
+- Liczby z rozmowy o rynku (np. „500 modeli”) nie są zweryfikowane i nie należą do opisu Nordvik.
+
+## Rytm pracy (kiedy co się dzieje)
+
+- Codziennie: pliki źródłowe raz na dobę, hurtownia ładowana w całości.
+- Poniedziałek: przegląd sprzedaży netto poprzedniego tygodnia ISO.
+- Koniec miesiąca: zamknięcie, przegląd marżowy, karta wyników sklepów.
+- Listopad (Black Friday) i grudzień: szczyty. Luty: dołek (orientacyjnie).
+- Przy porównaniach rok do roku uwzględnij te okresy.
+```
+
+**Result:**
+
+```
+Created file C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md with 3707 characters
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:27Z)**_
+
+Część liczb i reguł w nowo utworzonych instrukcjach nie jest jeszcze sprawdzona względem źródła (procenty kanałów, liczba SKU, czasy etapów cyklu, uwagi o jakości danych). Sprawdzam je w `nordvik-opis-firmy.md` i `slownik-metryk.md`, zanim dopiszę cokolwiek do `AGENTS.md`.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:28Z)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep"><details>
+<summary>Tool use: **grep**</summary>
+
+78|22 ?%|18 ?%|4 ?%|120|SKU|Czarn|Black|tyg|%|duplik|niekompletn|dzie[nń] przyj|Kraków|180|320|500|dasd|Rynek|online|ONLINE|sezon|Sezon
+
+**Input:**
+
+- -n: `true`
+- output_mode: `content`
+- paths:
+
+```
+[
+  "C:\\Users\\teamsharq\\Desktop\\infoshare-silkycoders-sql-ai-5\\docs\\nordvik-opis-firmy.md"
+]
+```
+
+- pattern: `78|22 ?%|18 ?%|4 ?%|120|SKU|Czarn|Black|tyg|%|duplik|niekompletn|dzie[nń] przyj|Kraków|180|320|500|dasd|Rynek|online|ONLINE|sezon|Sezon`
+
+**Result:**
+
+```
+[grep content: 58 matches across 1 file(s) under C:/Users/teamsharq/Desktop/infoshare-silkycoders-sql-ai-5/docs]
+
+nordvik-opis-firmy.md (58 match(es)):
+  16:  dasd
+  25: | Sklep internetowy | 1 (kanał `ONLINE`) |
+  26: | Asortyment | Odzież damska i męska, akcesoria. Ok. 120 SKU (uproszczenie: prawdziwa sieć ma ich wielokrotnie więcej) |
+  27: | Sezony | `SS` (luty–lipiec) i `AW` (sierpień–styczeń), np. `AW26` |
+  28: | Waluta i VAT | PLN. VAT 23% na odzież |
+  29: | Historia danych | Sprzedaż od stycznia 2025. Stany magazynowe i zwroty za bieżący sezon |
+  45:     F --> H["Sprzedaż online"]
+  58:   - kosztu zwrotów (szczególnie online).
+  59: - **Niesprzedany towar na koniec sezonu** = przecena lub wyprzedaż poniżej kosztu pozyskania marży.
+  62: ### 2.3 Cykl życia produktu w sezonie
+  66: | Wejście do sprzedaży | Pełna (`ListPrice`) | Sprzedaż przy pełnej marży | 4–6 tygodni |
+  67: | Sezon podstawowy | Pełna, ewentualnie akcje | Sprzedaż głównej części dostawy | do ok. 8 tygodni |
+  68: | Rabat sezonowy | −20% do −30% | Rozładowanie zapasu | 2–3 tygodnie |
+  69: | Wyprzedaż końcowa | −40% do −60% | Zamknięcie sezonu | do końca sezonu |
+  75: | Sklepy stacjonarne | ok. 78% (*orientacyjnie*) | ok. 4% (*orientacyjnie*) |
+  76: | Sklep internetowy | ok. 22% (*orientacyjnie*) | ok. 18% (*orientacyjnie*) |
+  78: Kanały porównujemy osobno. Wyższy wskaźnik zwrotów online jest cechą kanału, a nie sygnałem problemu.
+  88: | Nordvik Kraków Rynek | `STORE` | Kraków | 180 m² do marca 2026, **320 m² od kwietnia 2026** | Po przebudowie i powiększeniu |
+  91: | Nordvik Online | `ONLINE` | Brak | Brak (nie dotyczy) | Sklep internetowy |
+  105:         └── SKU = model × kolor × rozmiar      np. W-JKT-001-CZA-M
+  111: - Kolekcje sezonowe: np. `AW25`, `SS26`, `AW26`.
+  114: - `IsActive` oznacza SKU aktualnie w ofercie.
+  122: | Design | Kolekcje, wzory, modele | Które modele wchodzą w sezon? |
+  127: | E-commerce | Sklep internetowy | Jak zachowują się klienci online? |
+  141: | Pon
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:28Z)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep"><details>
+<summary>Tool use: **grep**</summary>
+
+DAMAGED|WRONG_SIZE|CHANGED|year_week|stock|sell-through|ISO|dim_date|season|Season|ONE|UNISEX
+
+**Input:**
+
+- -n: `true`
+- output_mode: `content`
+- paths:
+
+```
+[
+  "C:\\Users\\teamsharq\\Desktop\\infoshare-silkycoders-sql-ai-5\\docs\\slownik-metryk.md"
+]
+```
+
+- pattern: `DAMAGED|WRONG_SIZE|CHANGED|year_week|stock|sell-through|ISO|dim_date|season|Season|ONE|UNISEX`
+
+**Result:**
+
+```
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md:19:| **Zmiana sprzedaży tydzień do tygodnia** | (Sprzedaż netto bieżącego pełnego tygodnia − sprzedaż netto poprzedniego pełnego tygodnia) / sprzedaż netto poprzedniego tygodnia; oba tygodnie w tym samym przekroju. | `fact_sales` + `dim_date` |
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md:60:| **Stan magazynowy** | Liczba sztuk na koniec dnia handlowego dla SKU w sklepie. | `fact_inventory_daily.stock_quantity` |
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md:77:Powody zwrotów: `DAMAGED`, `WRONG_SIZE`, `CHANGED_MIND`, `OTHER`. Kanały porównujemy osobno, bo udział zwrotów online jest zwykle większy. Data i sklep w `fact_returns` oznaczają **przyjęcie zwrotu**; nie zakładaj, że to data i kanał pierwotnej sprzedaży.
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md:81:- **Tydzień handlowy:** pełny tydzień ISO-8601 od poniedziałku do niedzieli; `dim_date.year_week` ma format np. `2026-W24`.
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md:82:- **Rok ISO:** na przełomie roku może różnić się od roku kalendarzowego. Do grupowania tygodni używaj `iso_year` razem z `iso_week`, nigdy `calendar_year` z `iso_week`.
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md:91:| `dbo.DimDate`, `dbo.DimProduct`, `dbo.DimStore` | `dw.dim_date`, `dw.dim_product`, `dw.dim_store` |
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md:99:| `reporting.vw_StockAvailability`, `vw_ProductPerformance` | `reporting.stock_availability`, `reporting.product_performance` |
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\slownik-metryk.md:101:Kolumny zmieniają nazwę według tej samej reguły (`NetAmount` → `net_amount`, `SalesAreaM2` → `sales_area_m2`, `YearWeek` → `year_week`, `SalesDate` w widoku → `sales_date`). W
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:38Z)**_
+
+Większość liczb się zgadza. Trzy rzeczy wymagają poprawki w mojej instrukcji:
+- Opis firmy mówi o zwrotach `ok. 4%` i `ok. 18%` jako sztukach? Tabela nie precyzuje, więc zapisuję to jako „zwroty (orientacyjnie)” bez doprecyzowania jednostki.
+- Dodałem uwagę o „wymiarze `dim_date` (kolumna `season`)”, a w SQL Server kolumna nazywa się `Season`. Usuwam tę nazwę z instrukcji, bo to wariant PG.
+- Wiersz „Kolumna `season`” i „Nazwy sklepów wymagają potwierdzenia” — zostawiam, bo są w opisie (sekcja 3, sklepy są na liście). Nazwy sklepów są poza sekcjami, które sprawdziłem, więc usuwam tę linię.
+
+Poprawiam te dwa punkty w pliku.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:39Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md`
+
+```diff
+-- Sezon jest w wymiarze `dim_date` (kolumna `season`).
++- Sezon jest w wymiarze daty. Nazwa kolumny zależy od wariantu bazy (w repo SQL Server: `dbo.DimDate`, sprawdź w `RetailDW/Tables/`).
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:39Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md`
+
+```diff
+-- Sklepy: ok. 78% przychodu, zwroty ok. 4% sztuk (orientacyjnie).
+-- Online: ok. 22% przychodu, zwroty ok. 18% sztuk (orientacyjnie).
++- Sklepy stacjonarne: ok. 78% przychodu, zwroty ok. 4% (orientacyjnie, opis nie precyzuje miary).
++- Sklep internetowy: ok. 22% przychodu, zwroty ok. 18% (orientacyjnie, opis nie precyzuje miary).
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:40Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md`
+
+```diff
+-- Nazwy sklepów i metraż wymagają potwierdzenia przed publikacją.
+-
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\nordvik-kontekst-biznesowy.instructions.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:47Z)**_
+
+Teraz dopisuję do `AGENTS.md` odsyłacze do nowych instrukcji i do słownika metryk. Najpierw odczytuję aktualną sekcję.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:48Z)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep"><details>
+<summary>Tool use: **grep**</summary>
+
+Ściąga RetailDW|Instrukcje warunkowe|Duże dokumenty|^## |^###
+
+**Input:**
+
+- -n: `true`
+- output_mode: `content`
+- paths: `["C:\\Users\\teamsharq\\Desktop\\infoshare-silkycoders-sql-ai-5\\AGENTS.md"]`
+- pattern: `Ściąga RetailDW|Instrukcje warunkowe|Duże dokumenty|^## |^### `
+
+**Result:**
+
+```
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:5:## Rola asystenta
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:9:## Technologia
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:15:## Ściąga RetailDW
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:22:### Instrukcje warunkowe (`.github/instructions/`)
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:33:### Duże dokumenty (czytaj tylko w ostateczności)
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:46:## Zasady pracy
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:55:## Reguły podstawowe
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:60:## Gdy czegoś nie wiesz
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:65:## Jakość odpowiedzi
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:72:## Czego unikać
+C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md:89:## Język i format
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 12:59:53Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md`
+- view_range: `[15,46]`
+
+**Result:**
+
+```
+## Ściąga RetailDW
+- Przepływ: `src.*Raw` → `stg.*` → `dbo.Fact*` / `dbo.Dim*`. Raporty czytają z `reporting.vw_*`.
+- Procedury: `etl.Load<Name>`, pełne przeładowanie, wpis w `dbo.LoadLog`.
+- Nazwy: PascalCase, po angielsku. Ograniczenia nazywane jawnie: `PK_`, `FK_`, `UX_`, `IX_`, `DF_`, `CK_`.
+- Struktura schematów i plików: zgodna z projektem. Składnia i komentarze: wg dobrych praktyk T-SQL, nie wg wzorców legacy z kodu.
+- Gdy różni się od kodu, obowiązuje instrukcja `retaildw-sql-authoring`.
+
+### Instrukcje warunkowe (`.github/instructions/`)
+
+Ładowane automatycznie wg `applyTo`. Jeśli nie zostały załadowane, a zadanie dotyczy poniższego obszaru, wczytaj je ręcznie.
+
+| Instrukcja | Wczytaj, gdy zadanie dotyczy | Fallback (ręcznie, gdy applyTo nie zadziałało) |
+|---|---|---|
+| [retaildw-schema.instructions.md](.github/instructions/retaildw-schema.instructions.md) | Wyszukiwania obiektów, tabel, relacji, kluczy | Pliki w `RetailDW/Tables/`, `Views/`, `Procedures/` |
+| [retaildw-etl.instructions.md](.github/instructions/retaildw-etl.instructions.md) | Procedur `etl.Load*`, przepływu `src → stg → dbo`, `scripts/dw.ps1` | `RetailDW/Procedures/**`, `scripts/dw.ps1` |
+| [retaildw-sql-authoring.instructions.md](.github/instructions/retaildw-sql-authoring.instructions.md) | Pisania lub edycji dowolnego kodu SQL w `RetailDW/` | `RetailDW/**/*.sql` |
+| [retaildw-analysis.instructions.md](.github/instructions/retaildw-analysis.instructions.md) | Analiz, zapytań raportowych, miar, widoków `reporting` | `RetailDW/Views/**` |
+
+### Duże dokumenty (czytaj tylko w ostateczności)
+
+Czytaj poniższe pliki wyłącznie wtedy, gdy instrukcje warunkowe nie wystarczą, albo gdy użytkownik lub kontekst odwołuje się do konkretnej ich części. Czytaj wtedy tylko wskazany fragment (nagłówek sekcji), nie cały plik.
+
+| Dokument | Rozmiar | Kiedy czytać | Sekcje |
+|---|---|---|---|
+| [retaildw-database.md](docs/retaildw-database.md) | ~475 linii | Pytania o pełne kolumny, ind
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 13:00:00Z)**_
+
+Dopisuję nowe wpisy: cztery kolejne instrukcje (metryki i kontekst biznesowy) do tabeli oraz słownik metryk do sekcji dużych dokumentów.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 13:00:02Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md`
+
+```diff
+-| [retaildw-analysis.instructions.md](.github/instructions/retaildw-analysis.instructions.md) | Analiz, zapytań raportowych, miar, widoków `reporting` | `RetailDW/Views/**` |
++| [retaildw-analysis.instructions.md](.github/instructions/retaildw-analysis.instructions.md) | Analiz, zapytań raportowych, miar, widoków `reporting` | `RetailDW/Views/**` |
++| [nordvik-metryki.instructions.md](.github/instructions/nordvik-metryki.instructions.md) | Pytań o definicje i liczenie metryk (sprzedaż, marża, zapas, zwroty, kalendarz) | `docs/slownik-metryk.md` (sekcje według metryki) |
++| [nordvik-kontekst-biznesowy.instructions.md](.github/instructions/nordvik-kontekst-biznesowy.instructions.md) | Interpretacji wyników: sklepy, asortyment, sezony, kanały, ograniczenia danych | `docs/nordvik-opis-firmy.md` (sekcje z tabeli w instrukcji) |
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 13:00:02Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md`
+
+```diff
+-| [sql-style-guide.md](docs/sql-style-guide.md) | ~332 linie | Pytania o historyczne przykłady DDL, SELECT, procedur i widoków | Przykłady (sekcja „Przykłady”) |
++| [sql-style-guide.md](docs/sql-style-guide.md) | ~332 linie | Pytania o historyczne przykłady DDL, SELECT, procedur i widoków | Przykłady (sekcja „Przykłady”) |
++| [slownik-metryk.md](docs/slownik-metryk.md) | ~111 linii | Pytania o dokładną definicję metryki, której nie ma w `nordvik-metryki` | Nagłówek metryki (np. „Sprzedaż”, „Rentowność”, „Zapas”, „Zwroty”, „Kalendarz”), „Mapowanie nazw” |
++| [nordvik-opis-firmy.md](docs/nordvik-opis-firmy.md) | ~344 linie | Pytania o cele, rytm pracy, sezony, rolę firmy, którego nie ma w `nordvik-kontekst-biznesowy` | Sekcje 2–8 według tabeli w instrukcji; 9 (Data Science) i 10 (słownik) tylko w zadaniach DS lub przy nieznanym pojęciu |
++
++Uwaga: `slownik-metryk.md` opisuje wariant PostgreSQL (`dw.*`, snake_case) i nie odpowiada nazwom w repo SQL Server. Mapowanie jest w jego końcowej sekcji. Wariant `databases/RetailDW-postgres/` nie występuje w tym repo.
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 13:00:10Z)**_
+
+Teraz weryfikuję odsyłacze i zakresy `applyTo`, a także nagłówki sekcji, na które wskazują nowe wpisy.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 13:00:17Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="powershell"><details>
+<summary>Tool use: **powershell**</summary>
+
+Verify instruction files and links
+
+```powershell
+$root='C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5'; 'instructions:'; Get-ChildItem "$root\.github\instructions" | % { $_.Name }; 'links:'; Select-String -Path "$root\AGENTS.md" -Pattern '\]\(([^)]+)\)' -AllMatches | % { $_.Matches } | % { $_.Groups[1].Value } | Sort-Object -Unique | % { $p = Join-Path $root ($_ -replace '/','\'); "$_ => $(Test-Path $p)" }; 'headings:'; Select-String -Path "$root\docs\slownik-metryk.md" -Pattern '^##' | % { $_.Line }; Select-String -Path "$root\docs\nordvik-opis-firmy.md" -Pattern '^## |^### ' | % { $_.Line }
+```
+
+**Result:**
+
+```text
+instructions:
+nordvik-kontekst-biznesowy.instructions.md
+nordvik-metryki.instructions.md
+retaildw-analysis.instructions.md
+retaildw-etl.instructions.md
+retaildw-schema.instructions.md
+retaildw-sql-authoring.instructions.md
+links:
+.github/instructions/nordvik-kontekst-biznesowy.instructions.md => True
+.github/instructions/nordvik-metryki.instructions.md => True
+.github/instructions/retaildw-analysis.instructions.md => True
+.github/instructions/retaildw-etl.instructions.md => True
+.github/instructions/retaildw-schema.instructions.md => True
+.github/instructions/retaildw-sql-authoring.instructions.md => True
+docs/nordvik-opis-firmy.md => True
+docs/retaildw-database.md => True
+docs/slownik-metryk.md => True
+docs/sql-style-guide.md => True
+headings:
+## Sprzedaż
+## Rentowność
+## Transakcje i koszyk
+## Produktywność sklepu
+## Zapas i dostępność
+## Zwroty
+## Kalendarz
+## Mapowanie nazw: SQL Server → PostgreSQL
+## Spis treści
+## 1. Profil firmy
+## 2. Model biznesowy
+### 2.1 Łańcuch wartości
+### 2.2 Co firma zarabia i co ją kosztuje
+### 2.3 Cykl życia produktu w sezonie
+### 2.4 Kanały
+## 3. Sklepy i kanały
+## 4. Asortyment i produkt
+### 4.1 Hierarchia produktu
+### 4.2 Zasady asortymentu
+## 5. Organizacja i odpowiedzialności
+## 6. Rytm pracy firmy
+## 7. Dane: źródła i hurtownia
+### 7.1 Systemy źródłowe
+### 7.2 Warstwy hurtowni
+### 7.3 Model gwiazdy
+### 7.4 Zasady łączenia danych
+### 7.5 Czego w hurtowni nie ma
+### 7.6 Jakość danych w praktyce
+## 8. Metryki
+## 9. Data Science w Nordvik
+### 9.1 Podział ról
+### 9.2 Obszary pracy Data Science
+### 9.3 Jak wygląda projekt Data Science
+### 9.4 Ograniczenia, które wszyscy znają
+## 10. Słownik pojęć
+## 11. Założenia i źródła
+### 11.1 Co jest założeniem
+### 11.2 Skąd wzięto opis
+<shellId: 44 completed with exit code 0>
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 13:00:22Z)**_
+
+Wszystkie odsyłacze działają, a nagłówki zgadzają się z tym, na co wskazuje `AGENTS.md`. Sekcja 7.5 opisu firmy („czego w hurtowni nie ma”) jest zgodna z moją instrukcją, a 7.6 zawiera ograniczenia danych, które przeniosłem. Nie sprawdziłem pełnej treści 7.5/7.6 ani 10 w tym wątku, więc to zostawiam jako założenie do weryfikacji. Odnotowuję też, że `applyTo` nie zostało przetestowane, więc fallbacki w `AGENTS.md` są potrzebne.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 13:00:22Z)**_
+
+Dopisano do AGENTS.md warunkowe ładowanie metryk i kontekstu biznesowego oraz utworzono 2 nowe instrukcje.
+
+**Nowe pliki w `.github/instructions/`:**
+- `nordvik-metryki.instructions.md` (applyTo: `RetailDW/Views/**`, `docs/slownik-metryk.md`): reguły liczenia sprzedaży, marży, zapasu, zwrotów, kalendarza ISO i sezonów.
+- `nordvik-kontekst-biznesowy.instructions.md` (applyTo: `docs/nordvik-opis-firmy.md`, `RetailDW/Views/**`, `RetailDW/Tables/**`): tabela „co wczytać do jakiego zadania”, sklepy, asortyment, sezony, kanały, ograniczenia danych, założenia oznaczone jako orientacyjne.
+
+**Zmiany w `AGENTS.md`:**
+- Tabela instrukcji rozszerzona o 2 nowe wpisy z kolumną „Fallback”.
+- Sekcja „Duże dokumenty” rozszerzona o `slownik-metryk.md` i `nordvik-opis-firmy.md` z sekcjami do przeszukania.
+- Uwaga o wariancie PostgreSQL w słowniku.
+
+**Weryfikacja:** wszystkie odsyłacze w `AGENTS.md` wskazują na istniejące pliki; nagłówki w słowniku i opisie zgadzają się z wpisami.
+
+**Problemy do wyjaśnienia:**
+1. `vw_MarginAnalysis` liczy `GrossMargin` jako sprzedaż netto − COGS, bez zwrotów. Słownik i opis definiują marżę z odjęciem zwrotów netto. Nie zmieniałem kodu; oznaczyłem to w instrukcji metryk jako pułapkę.
+2. Słownik i opis firmy opisują wariant PostgreSQL (`databases/RetailDW-postgres/`), którego nie ma w repo. Nazwy w słowniku nie odpowiadają nazwom SQL Server; mapowanie jest w słowniku.
+3. Opis firmy, linia ~16, zawiera artefakt tekstowy „dasd”. Nie usuwałem go bez pytania.
+4. Procenty kanałów i zwrotów są orientacyjne w źródle (sam opis tak to oznacza), a opis nie precyzuje miary zwrotów.
+5. Nie przetestowano, czy `applyTo` działa; fallbacki w `AGENTS.md` są na taki wypadek.
+
+Zmiany są niezacommitowane. Nie łączyłem się z bazą i nie czytałem `data/`, `notatki/`, `docs/analizy/`.
