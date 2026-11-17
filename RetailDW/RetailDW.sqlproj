@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build">
   <Sdk Name="Microsoft.Build.Sql" Version="2.2.0" />
   <PropertyGroup>
     <Name>RetailDW</Name>
     <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
     <ModelCollation>1045, CI</ModelCollation>
-    <ProjectGuid>{00000000-0000-0000-0000-000000000000}</ProjectGuid>
+    <ProjectGuid>{4D80AF47-4BB6-462B-976B-47EFCAF119E6}</ProjectGuid>
   </PropertyGroup>
   <ItemGroup>
     <Build Remove="Scripts\**\*.sql" />

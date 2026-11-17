@@ -890,3 +890,200 @@ Connection string:
 `Server=127.0.0.1,14332;Database=RetailDW_Workshop;User Id=sa;Password=<MSSQL_SA_PASSWORD z .env>;Encrypt=False;TrustServerCertificate=True;`
 
 Zastrzeżenie: bezpośredni test połączenia z zapytaniem został odrzucony przez użytkownika, więc połączenie potwierdzone jest tylko pośrednio przez `verify`. Nie wykonywano ETL ani importu CSV. Nie zmieniano plików repozytorium.
+
+---
+
+_**User (2026-11-17 10:35:15Z)**_
+
+sprawdź połączenie teraz
+
+---
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 10:35:18Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="powershell"><details>
+<summary>Tool use: **powershell**</summary>
+
+Test SQL connection to RetailDW_Workshop
+
+```powershell
+cd "c:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5"; $pw = ((Get-Content .env | Where-Object { $_ -match '^MSSQL_SA_PASSWORD=' }) -replace '^MSSQL_SA_PASSWORD=','').Trim()
+$cs = "Server=127.0.0.1,14332;Database=RetailDW_Workshop;User Id=sa;Password=$pw;Encrypt=False;TrustServerCertificate=True;Connect Timeout=5"
+$c = New-Object System.Data.SqlClient.SqlConnection $cs
+try {
+  $c.Open()
+  $cmd = $c.CreateCommand(); $cmd.CommandText = "SELECT DB_NAME() AS db, SUSER_SNAME() AS login, (SELECT COUNT(*) FROM dbo.DimDate) AS dimdate, (SELECT COUNT(*) FROM dbo.DimProduct) AS dimproduct, (SELECT COUNT(*) FROM dbo.DimStore) AS dimstore"
+  $r = $cmd.ExecuteReader(); while ($r.Read()) { "db=$($r['db']) login=$($r['login']) dimdate=$($r['dimdate']) dimproduct=$($r['dimproduct']) dimstore=$($r['dimstore'])" }
+  $r.Close(); "CONNECTION OK"
+} catch { "CONNECTION FAILED: $($_.Exception.Message)" } finally { $c.Dispose() }
+```
+</details></tool-use>
+
+---
+
+_**User (2026-11-17 10:35:40Z)**_
+
+uzyj narzędzia mssql
+
+---
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 10:35:41Z)**_
+
+Użyję narzędzia MSSQL. Zaczynam od połączenia z serwerem.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 10:35:41Z)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="mssql_list_servers"><details>
+<summary>Tool use: **mssql_list_servers**</summary>
+
+**Result:**
+
+```json
+{
+  "servers": [
+    {
+      "profileId": "f95eda94-0669-45a9-bf75-ddf48d1314be",
+      "profileName": "RetailDW",
+      "server": "127.0.0.1,14332",
+      "database": "RetailDW_Workshop"
+    },
+    {
+      "profileId": "412846ae-f8bf-4188-8052-c042e26c8bfb",
+      "profileName": "RetailDW",
+      "server": "127.0.0.1,14332",
+      "database": "RetailDW_Workshop"
+    }
+  ]
+}
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 10:35:43Z)**_
+
+Serwer jest na liście, z profilem `RetailDW`. Łączę się z nim.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 10:36:28Z)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="mssql_connect"><details>
+<summary>Tool use: **mssql_connect**</summary>
+
+**Input:**
+
+- database: `RetailDW_Workshop`
+- profileId: `f95eda94-0669-45a9-bf75-ddf48d1314be`
+- serverName: `127.0.0.1,14332`
+
+**Result:**
+
+```json
+{
+  "success": true,
+  "connectionId": "f73e9d20-a4f1-4275-935c-f88baeae6f8a",
+  "message": "Successfully connected to server."
+}
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 10:36:53Z)**_
+
+<tool-use data-tool-type="unknown" data-tool-name="mssql_run_query"><details>
+<summary>Tool use: **mssql_run_query**</summary>
+
+SELECT DB_NAME() AS db, SUSER_SNAME() AS login, (SELECT COUNT(*) FROM dbo.DimDate) AS dimdate, (SELECT COUNT(*) FROM dbo.DimProduct) AS dimproduct, (SELECT COUNT(*) FROM dbo.DimStore) AS dimstore
+
+**Input:**
+
+- connectionId: `f73e9d20-a4f1-4275-935c-f88baeae6f8a`
+- query: `SELECT DB_NAME() AS db, SUSER_SNAME() AS login, (SELECT COUNT(*) FROM dbo.DimDate) AS dimdate, (SELECT COUNT(*) FROM dbo.DimProduct) AS dimproduct, (SELECT COUNT(*) FROM dbo.DimStore) AS dimstore`
+- queryIntent: `troubleshooting`
+- queryTypes: `["SELECT"]`
+
+**Result:**
+
+```json
+{
+  "success": true,
+  "rowCount": 1,
+  "columnInfo": [
+    {
+      "isBytes": false,
+      "isChars": true,
+      "isSqlVariant": false,
+      "isUdt": false,
+      "isXml": false,
+      "isJson": false,
+      "isVector": false,
+      "sqlDbType": 12,
+      "isHierarchyId": false,
+      "isSqlXmlType": false,
+      "isUnknownType": false,
+      "isUpdatable": false,
+      "allowDBNull": true,
+      "baseCatalogName": null,
+      "baseColumnName": null,
+      "baseSchemaName": null,
+      "baseServerName": null,
+      "baseTableName": null,
+      "columnName": "db",
+      "columnOrdinal": 0,
+      "columnSize": 128,
+      "isAliased": null,
+      "isAutoIncrement": false,
+      "isExpression": null,
+      "isHidden": null,
+      "isIdentity": false,
+      "isKey": null,
+      "isLong": false,
+      "isReadOnly": true,
+      "isUnique": false,
+      "numericPrecision": 255,
+      "numericScale": 255,
+      "udtAssemblyQualifiedName": null,
+      "dataType": "System.String, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "dataTypeName": "nvarchar"
+    },
+    {
+      "isBytes": false,
+      "isChars": true,
+      "isSqlVariant": false,
+      "isUdt": false,
+      "isXml": false,
+      "isJson": false,
+      "isVector": false,
+      "sqlDbType": 12,
+      "isHierarchyId": false,
+      "isSqlXmlType": false,
+      "isUnknownType": false,
+      "isUpdatable": false,
+      "allowDBNull": true,
+      "baseCatalogName": null,
+      "baseColumnName": null,
+      "baseSchemaName": null,
+      "baseServerName": null,
+      "baseTableName": null,
+      "columnName": "login",
+      "columnOrdinal": 1,
+      "columnSize": 128,
+      "isAliased": null,
+      "isAutoIncrement": false,
+      "isExpression": null,
+      "isHidden": null,
+      "isIdentity": false,
+      "isKey": null,
+      "isLong": false,
+      "isReadOnly": true,
+      "isUnique": false,
+      "numericPrecision": 255,
+      "numericScale": 255,
+      "udtAssemblyQu
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 10:36:55Z)**_
+
+Połączenie działa. Zapytanie przez narzędzie MSSQL zwróciło: baza `RetailDW_Workshop`, login `sa`, DimDate 761, DimProduct 124, DimStore 6.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 10:36:55Z)**_
+
+Połączenie z bazą RetailDW_Workshop działa. Sprawdzone narzędziem MSSQL (mssql_connect + mssql_run_query) na serwerze 127.0.0.1,14332 jako sa. Wyniki: DimDate 761, DimProduct 124, DimStore 6. Baza jest w stanie po setupie V0: bez ETL i bez importu CSV. Plik .env i repozytorium nie zostały zmienione.
