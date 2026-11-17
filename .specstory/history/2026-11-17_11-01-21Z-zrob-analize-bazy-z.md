@@ -2403,3 +2403,1095 @@ File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\docs\retaildw-dat
 _**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:06:32Z)**_
 
 Zapisano dokumentację bazy RetailDW w docs/retaildw-database.md (po polsku, TOC na początku, głównie tabele i listy, diagram Mermaid przepływu ETL). Zawiera: przegląd, strukturę projektu i ścieżki plików, schematy, wymiary (DimDate, DimProduct, DimStore), fakty (FactSales, FactReturns, FactInventoryDaily), konwencje (faktyczne i różnice względem sql-style-guide.md), tabele src/stg/audyt (LoadLog), procedury etl.Load*, przepływ ETL w tabelach i diagramie, widoki reporting.vw_*, uprawnienia/skrypty oraz ograniczenia dla analityków. Opisy zweryfikowane względem źródeł (m.in. import CSV w dw.ps1 nie wypełnia SourceFile; brak wiersza Unknown w wymiarach). Nie uruchamiałem renderowania Mermaid ani kompilacji projektu SQL, więc poprawność składni diagramu sprawdzona tylko ręcznie.
+
+---
+
+_**User (2026-11-17 11:31:14Z)**_
+
+co z dokumentacji warto przenieść do AGENTS jako szybką ściąge / wskazówkę dla modelu
+
+co warto wydobyć do osobnych instukcji ładowanych warunkowo do określonych rodzajów zadań ( .github/instructions/*.instruction.md ? )
+
+np.  wyszukiwanie schematów/obiektów/relacji VS analizy na bazie VS  pisanie/edycja kodu SQL etc 
+
+---
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:31:17Z)**_
+
+Najpierw przeczytam aktualny `AGENTS.md` i sprawdzę, czy istnieją już pliki instrukcji.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:31:18Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md`
+
+**Result:**
+
+```
+# Kontekst workspace: hurtownia danych retail (moda)
+Repozytorium zawiera projekt hurtowni danych dla firmy odzieżowej w retailu: projekt SQL `RetailDW`, skrypty ETL, widoki raportowe, dane źródłowe CSV oraz dokumentację.
+
+
+## Rola asystenta
+Jesteś asystentem inżyniera danych i analityka DWH. Odpowiadasz po polsku. Nazwy obiektów, kolumn i kodu piszesz po angielsku, a komentarze w kodzie po angielsku.
+
+
+## Technologia
+- SQL Server 2022, składnia T-SQL.
+- Projekt bazy: `RetailDW/RetailDW.sqlproj` (tabele, procedury, widoki, skrypty post-deployment, bezpieczeństwo).
+- Warstwy: `src` (dane surowe), `stg` (staging), `etl` (procedury ładujące), `dbo` (wymiary i fakty), `reporting` (widoki raportowe).
+- Dane źródłowe: `data/P0/` (CSV i `manifest.json`).
+
+
+
+## Zasady pracy
+- Nie zgaduj nazw tabel ani kolumn. Sprawdź definicje w `RetailDW/Tables/` lub zapytaj.
+- Zmiany są chirurgiczne: zmieniaj tylko to, o co poproszono, i aktualizuj powiązaną dokumentację.
+- Nie łącz się z bazą, nie uruchamiaj skryptów ani nie commituj bez wyraźnej prośby.
+- Jeśli brakuje informacji potrzebnych do wykonania zadania, zapytaj przed wygenerowaniem kodu.
+- Wynik ma być gotowy do użycia: poprawny T-SQL dla SQL Server 2022, bez zbędnych komentarzy.
+- Dane w bazie mogą być duże - dobieraj próbę, ziarno, okres - unikaj nieograniczonych zapytań
+- W trakcie analiz celem nie jest sam wynik, ale cała ścieżka analizy, hipotez i dowowdów które muisz przestawić użytkownikowi
+
+## Reguły podstawowe
+- **Nie zgaduj** — jeśli nie masz wystarczających informacji, zapytaj użytkownika, zanim odpowiesz.
+- **Nie halucynuj** — nie wymyślaj faktów, danych, nazw, linków ani fragmentów kodu, których nie możesz zweryfikować.
+- **Nie zakładaj** — nie przyjmuj założeń co do kontekstu, wymagań ani intencji użytkownika bez potwierdzenia.
+
+## Gdy czegoś nie wiesz
+- Powiedz wprost: „Nie mam wystarczających informacji, żeby odpowiedzieć”.
+- Zadaj konkretne, precyzyjne pytania, żeby uzupełnić br
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:31:18Z)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob"><details>
+<summary>Tool use: **glob**</summary>
+
+**/*.instructions.md
+
+**Input:**
+
+- paths: `["C:\\Users\\teamsharq\\Desktop\\infoshare-silkycoders-sql-ai-5"]`
+- pattern: `**/*.instructions.md`
+
+**Result:**
+
+```
+No files matched the pattern.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:31:18Z)**_
+
+<tool-use data-tool-type="search" data-tool-name="glob"><details>
+<summary>Tool use: **glob**</summary>
+
+.github/**/*
+
+**Input:**
+
+- paths: `["C:\\Users\\teamsharq\\Desktop\\infoshare-silkycoders-sql-ai-5"]`
+- pattern: `.github/**/*`
+
+**Result:**
+
+```
+No files matched the pattern.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:31:40Z)**_
+
+Sprawdziłem stan repo: w `AGENTS.md` jest tylko ogólny kontekst, a katalog `.github/` nie istnieje, więc żadnych instrukcji warunkowych jeszcze nie ma. Zapisuję plan do pliku sesji (bez zmian w repo).
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:31:40Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="create"><details>
+<summary>Tool use: **create**</summary>
+
+create a new file at C:\Users\teamsharq\.copilot\session-state\e36f14ac-e005-4988-97f3-cc67e4330429\plan.md.
+
+Path: `C:\Users\teamsharq\.copilot\session-state\e36f14ac-e005-4988-97f3-cc67e4330429\plan.md`
+
+```markdown
+# Plan: podział wiedzy o RetailDW między AGENTS.md a instrukcje warunkowe
+
+## Problem
+`docs/retaildw-database.md` (476 linii) jest dokumentacją dla ludzi. Model AI nie powinien ładować jej w całości przy każdym zadaniu. `AGENTS.md` (68 linii) zawiera tylko ogólny kontekst i reguły. Nie ma katalogu `.github/`, więc nie ma żadnych instrukcji warunkowych.
+
+## Proponowane podejście
+- `AGENTS.md` zostaje krótki i ogólny: rola, język, reguły, zakazane ścieżki i wskaźnik do dokumentacji. Dodajemy tylko kilka linii ściągi: warstwy, konwencja nazw, ścieżki do plików.
+- Szczegóły trafiają do `.github/instructions/*.instructions.md`, ładowanych przez `applyTo` tylko dla pasujących plików.
+- Instrukcje nie duplikują dokumentacji. Odsyłają do `docs/retaildw-database.md` jako źródła prawdy dla szczegółów (kolumny, indeksy, pełne listy).
+- Dokumentacja pozostaje dla ludzi. Instrukcje są krótkie, z regułami i pułapkami.
+
+## Pliki do utworzenia / zmiany
+| Plik | Typ | `applyTo` | Zawartość |
+|---|---|---|---|
+| `AGENTS.md` | zmiana | (zawsze) | Dodać sekcję „Ściąga RetailDW”: warstwy, konwencje nazw, mapa ścieżek, odsyłacz do dokumentacji i instrukcji. Bez szczegółów kolumn. |
+| `.github/instructions/retaildw-schema.instructions.md` | nowy | `RetailDW/Tables/**,RetailDW/Views/**,RetailDW/Procedures/**` | Wyszukiwanie obiektów i relacji: lista obiektów z ziarnem, FK, kluczami i plikami; gdzie szukać definicji; jak czytać model gwiaździsty. |
+| `.github/instructions/retaildw-etl.instructions.md` | nowy | `RetailDW/Procedures/**,scripts/dw.ps1` | Przepływ ETL: src → stg → dbo; wzorzec procedury (LoadLog, XACT_ABORT, pełne przeładowanie); kolejność feedów; import CSV bez ETL; co jest odrzucane po cichu. |
+| `.github/instructions/retaildw-sql-authoring.instructions.md` | nowy | `RetailDW/**/*.sql` | Pisanie i edycja SQL: nazewnictwo i prefiksy ograniczeń faktyczne w kodzie, nagłówek komentarza, styl (wielkie litery słów kluczowych, wcięcia), `TRY_CAST` w src→stg, bez `SELECT *` w widokach. |
+| `.github/instructions/retaildw-analysis.instructions.md` | nowy | `RetailDW/Views/**` | Pułapki analityczne: snapshot stanów, sell-through tylko za sezon, ISO week, NetAmount = Gross/1.23, SalesAreaM2 bieżąca, brak wiersza Unknown, rejected rows w LoadLog, SCD1. |
+
+## Zasady treści instrukcji
+- Każda instrukcja: nagłówek YAML z `description` i `applyTo`, potem krótkie listy i tabele.
+- Brak prozy. Maksymalnie ok. 60–80 linii na plik.
+- Każdy fakt zweryfikowany w plikach źródłowych przed zapisem.
+- Ścieżki względne do repo, odsyłacze Markdown.
+
+## Otwarte kwestie (do potwierdzenia)
+1. Konflikt konwencji: `docs/sql-style-guide.md` przewiduje schematy `dwh`/`rpt` i `usp_Etl_*`, a kod używa `dbo`/`reporting` i `etl.Load*`. Instrukcje muszą wskazać jedną wersję jako obowiązującą dla AI.
+2. Zakres: 4 pliki instrukcji (propozycja) czy mniej (np. schemat+ETL razem, analiza w AGENTS)?
+3. Weryfikacja: nie mam potwierdzenia, czy użyta wersja VS Code/Copilot obsługuje `applyTo` dla `.instructions.md`. Trzeba to sprawdzić w środowisku użytkownika.
+
+## Ograniczenia
+- Nie czytać `data/`, `notatki/`, `.specstory/`, `docs/analizy/` (zgodnie z `AGENTS.md`). Te zasoby nie są potrzebne do zadania.
+- Nie łączyć się z bazą i nie uruchamiać skryptów.
+- Zmiany w repo dopiero po akceptacji planu.
+
+## Todo
+1. Potwierdzić konwencję obowiązującą (konflikt style guide vs kod).
+2. Dopisać sekcję ściągi do `AGENTS.md`.
+3. Utworzyć `.github/instructions/retaildw-schema.instructions.md`.
+4. Utworzyć `.github/instructions/retaildw-etl.instructions.md`.
+5. Utworzyć `.github/instructions/retaildw-sql-authoring.instructions.md`.
+6. Utworzyć `.github/instructions/retaildw-analysis.instructions.md`.
+7. Sprawdzić, czy wszystkie odsyłacze i ścieżki w nowych plikach istnieją.
+```
+
+**Result:**
+
+```
+Created file C:\Users\teamsharq\.copilot\session-state\e36f14ac-e005-4988-97f3-cc67e4330429\plan.md with 3816 characters
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:31:47Z)**_
+
+Plan zapisany w [plan.md](C:\Users\teamsharq\.copilot\session-state\e36f14ac-e005-4988-97f3-cc67e4330429\plan.md). Nie zmieniałem jeszcze repo.
+
+**Stan wyjściowy**
+- `AGENTS.md` ma 68 linii, ogólny kontekst i reguły. Nie zawiera żadnej wiedzy o schemacie.
+- Katalog `.github/` nie istnieje, więc nie ma instrukcji warunkowych.
+
+**Proponowany podział**
+- **`AGENTS.md`**: krótka sekcja „ściąga RetailDW” (warstwy, konwencje nazw, mapa ścieżek) i odsyłacz do dokumentacji oraz instrukcji. Bez kolumn i indeksów.
+- **`.github/instructions/retaildw-schema.instructions.md`** (`applyTo`: `RetailDW/Tables/**`, `Views/**`, `Procedures/**`): wyszukiwanie obiektów i relacji, lista FK i ziaren, gdzie szukać definicji.
+- **`.github/instructions/retaildw-etl.instructions.md`** (`applyTo`: `RetailDW/Procedures/**`, `scripts/dw.ps1`): przepływ src → stg → dbo, wzorzec procedury z `LoadLog`, import CSV bez ETL, odrzucanie wierszy bez logu.
+- **`.github/instructions/retaildw-sql-authoring.instructions.md`** (`applyTo`: `RetailDW/**/*.sql`): pisanie i edycja SQL, nazewnictwo i prefiksy ograniczeń stosowane w kodzie, styl.
+- **`.github/instructions/retaildw-analysis.instructions.md`** (`applyTo`: `RetailDW/Views/**`): pułapki analityczne, np. snapshot stanów, sell-through tylko za sezon, `NetAmount = Gross / 1.23`, bieżąca powierzchnia sklepu.
+
+Instrukcje mają być krótkie (ok. 60–80 linii), bez prozy, a szczegóły zostają w `docs/retaildw-database.md`.
+
+**Pytania przed implementacją**
+1. **Konflikt konwencji:** `docs/sql-style-guide.md` mówi o schematach `dwh`/`rpt` i procedurach `usp_Etl_*`, a kod używa `dbo`/`reporting` i `etl.Load*`. Którą wersję uznajemy za obowiązującą dla AI? Dokumentacja opisuje to już w sekcji 6.2.
+2. **Zakres:** cztery pliki instrukcji, czy mniej (np. schemat i ETL razem)?
+3. **Weryfikacja:** nie sprawdziłem, czy Twoja wersja VS Code obsługuje `applyTo` w `.instructions.md`. Warto to potwierdzić przed rozbudową.
+
+Zanim zaczniemy pisać pliki, potrzebuję odpowiedzi na pytanie 1 i decyzji o zakresie z pytania 2.
+
+---
+
+_**User (2026-11-17 11:37:00Z)**_
+
+1. zgodne z istniejacą strukturą, ale skaładnia, komentarze etc wg. dobrych praktyk - przy tworzeniu nowego, edycji chcemy aby model stosował już spójne dobre prartyki, strukture, składnie etc. a nie powtarzał wzorców legacy
+2. 4 są ok
+3. sprawdzimy potem 
+
+---
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:37:16Z)**_
+
+Przyjmuję: struktura zgodna z obecnym projektem (`dbo`, `reporting`, `etl.Load*`, `src`/`stg`), a składnia, komentarze i wzorce procedur według dobrych praktyk. Tworzę cztery instrukcje i dopisuję ściągę do `AGENTS.md`. Najpierw sprawdzam, jakie wzorce legacy są w kodzie, żeby je jawnie wykluczyć.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:37:17Z)**_
+
+<tool-use data-tool-type="search" data-tool-name="grep"><details>
+<summary>Tool use: **grep**</summary>
+
+1\.23|DELETE FROM|BEGIN TRAN|LEFT JOIN|-1|Unknown|'20\d\d-\d\d-\d\d'
+
+**Input:**
+
+- -n: `true`
+- head_limit: `40`
+- output_mode: `content`
+- paths: `["C:\\Users\\teamsharq\\Desktop\\infoshare-silkycoders-sql-ai-5\\RetailDW"]`
+- pattern: `1\.23|DELETE FROM|BEGIN TRAN|LEFT JOIN|-1|Unknown|'20\d\d-\d\d-\d\d'`
+
+**Result:**
+
+```
+[grep content: 21 matches across 7 file(s) under C:/Users/teamsharq/Desktop/infoshare-silkycoders-sql-ai-5/RetailDW]
+
+Procedures/etl.LoadInventory.sql (2 match(es)):
+  23:         DELETE FROM [dbo].[FactInventoryDaily];
+  24:         DELETE FROM [stg].[Inventory];
+
+Procedures/etl.LoadSales.sql (3 match(es)):
+  25:         DELETE FROM [dbo].[FactSales];
+  26:         DELETE FROM [stg].[Sales];
+  66:                 CAST((s.[Quantity] * s.[UnitPrice] - s.[DiscountAmount]) / 1.23 AS DECIMAL (12, 2)),
+
+Procedures/etl.LoadReturns.sql (2 match(es)):
+  23:         DELETE FROM [dbo].[FactReturns];
+  24:         DELETE FROM [stg].[Returns];
+
+Scripts/Seed/02-DimStore.sql (6 match(es)):
+  9:         (N'S-WAW-01', N'Warszawa Arkadia',      N'Warszawa', N'Mazowieckie',   N'STORE',  N'Galeria',      420,  '2016-04-15', NULL),
+  10:         (N'S-WAW-02', N'Warszawa Mokotow',      N'Warszawa', N'Mazowieckie',   N'STORE',  N'Galeria',      260,  '2019-09-01', NULL),
+  11:         (N'S-KRK-01', N'Krakow Rynek',          N'Krakow',   N'Malopolskie',   N'STORE',  N'Ulica',        320,  '2017-11-20', '2026-04-01'),
+  12:         (N'S-POZ-01', N'Poznan Stary Browar',   N'Poznan',   N'Wielkopolskie', N'STORE',  N'Galeria',      300,  '2018-03-10', NULL),
+  13:         (N'S-GDA-01', N'Gdansk Forum',          N'Gdansk',   N'Pomorskie',     N'STORE',  N'Galeria',      240,  '2021-10-05', NULL),
+  14:         (N'S-ONL-01', N'Sklep internetowy',     N'-',        N'Online',        N'ONLINE', N'E-commerce',   NULL, '2015-01-01', NULL);
+
+Scripts/Seed/00-DimDate.sql (3 match(es)):
+  5:     DECLARE @CalendarFrom DATE = '2024-12-01',
+  6:             @CalendarTo   DATE = '2026-12-31';
+  33:         -- the calendar year: 2025-12-29 belongs to ISO week 1 of 2026.
+Tables/dbo.FactSales.sql:6:     [NetAmount]   = [GrossAmount] / 1.23, VAT excluded.
+
+Views/reporting.vw_ProductPerformance.sql (4 match(es)):
+  67: LEFT JOIN [SoldTotal]  AS t  ON t.[ProductKey]  = p.[ProductKey]
+  68: LEFT JOIN [SoldSeason] 
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:37:21Z)**_
+
+Legacy wzorce potwierdzone: `DELETE` zamiast `TRUNCATE`/MERGE, stała `1.23` w kodzie, brak wiersza `-1`, `SELECT` bez jawnych kolumn w widokach. Teraz tworzę pliki.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:39:10Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="powershell"><details>
+<summary>Tool use: **powershell**</summary>
+
+Create .github/instructions directory
+
+```powershell
+New-Item -ItemType Directory -Force -Path "C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions" | Out-Null; Test-Path "C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions"
+```
+
+**Result:**
+
+```text
+True
+<shellId: 31 completed with exit code 0>
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:39:44Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="create"><details>
+<summary>Tool use: **create**</summary>
+
+create a new file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-schema.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-schema.instructions.md`
+
+```markdown
+---
+description: "Wyszukiwanie i analiza obiektów RetailDW: tabele, wymiary, fakty, relacje, widoki."
+applyTo: "RetailDW/Tables/**,RetailDW/Views/**,RetailDW/Procedures/**"
+---
+
+# RetailDW – schemat i obiekty
+
+Pełna dokumentacja: [retaildw-database.md](../../docs/retaildw-database.md). Ta instrukcja to ściąga do szybkiego wyszukiwania. Kolumny i indeksy zawsze sprawdzaj w pliku definicji.
+
+## Gdzie szukać definicji
+
+| Obiekt | Plik |
+|---|---|
+| Wymiar / fakt / audyt (`dbo`) | `RetailDW/Tables/dbo.<Name>.sql` |
+| Landing (`src`) | `RetailDW/Tables/src.<Name>Raw.sql` |
+| Staging (`stg`) | `RetailDW/Tables/stg.<Name>.sql` |
+| Procedura ETL | `RetailDW/Procedures/etl.Load<Name>.sql` |
+| Widok raportowy | `RetailDW/Views/reporting.vw_<Name>.sql` |
+| Schemat | `RetailDW/Security/<schema>.sql` |
+
+## Model gwiaździsty
+
+| Obiekt | Typ | Ziarno | Klucz | Wymiary (FK) |
+|---|---|---|---|---|
+| `dbo.FactSales` | fakt | pozycja paragonu (SKU w transakcji) | `SalesKey` BIGINT | `DateKey`, `ProductKey`, `StoreKey` |
+| `dbo.FactReturns` | fakt | pozycja zwrotu | `ReturnKey` BIGINT | `DateKey`, `ProductKey`, `StoreKey` |
+| `dbo.FactInventoryDaily` | fakt (snapshot) | dzień × SKU × sklep | `InventoryKey` BIGINT | `DateKey`, `ProductKey`, `StoreKey` |
+| `dbo.DimDate` | wymiar | dzień | `DateKey` INT `yyyymmdd` | – |
+| `dbo.DimProduct` | wymiar | SKU | `ProductKey` INT IDENTITY | – |
+| `dbo.DimStore` | wymiar | sklep lub online | `StoreKey` INT IDENTITY | – |
+| `dbo.LoadLog` | audyt | jedno uruchomienie ETL | `LoadId` INT IDENTITY | – |
+
+## Relacje i klucze
+
+- Fakty łączą się z wymiarami wyłącznie przez surogaty (`*Key`), nie przez kody biznesowe.
+- Kody biznesowe: `DimProduct.SKU`, `DimStore.StoreCode`, `DimDate.Date`. Są unikalne (indeksy `UX_*`).
+- Degenerate dimensions w faktach: `TransactionNo`, `LineNumber`, `ReturnNo`, `ReturnReason`.
+- `FactReturns` łączy się z `FactSales` po `TransactionNo` i `ProductKey`. Nie ma klucza obcego.
+- `DimDate.Date` i `DimDate.DateKey` opisują ten sam dzień. Przy łączeniu z `src`/`stg` używaj `Date`.
+
+## Zasady wyszukiwania
+
+- Nazwy obiektów, kolumn i aliasy sprawdzaj w plikach `Tables/`, `Views/`, `Procedures/`. Nie zgaduj.
+- Przy pytaniu o relację najpierw sprawdź klucze obce w definicji tabeli faktu.
+- Przy pytaniu o miarę sprawdź definicję w widoku lub w procedurze, bo wzory (np. `NetAmount`) są tam.
+- Przy pytaniu „co liczy widok” czytaj nagłówek komentarza w pliku widoku.
+- Nie czytaj `data/`. Dane są w bazie, nie w repo.
+
+## Konwencje w obiektach
+
+- Nazwy: PascalCase, po angielsku, bez skrótów w miarach.
+- Tabele faktów: `Fact<Name>`. Wymiary: `Dim<Name>`. Widoki: `reporting.vw_<Name>`.
+- Klucze nazywane jawnie: `PK_<Table>`, `FK_<Table>_<Ref>`, `UX_<Table>_<Column>`, `IX_<Table>_<Columns>`, `DF_<Table>_<Column>`, `CK_<Table>_<Column>`.
+- Każdy plik ma nagłówek komentarza z opisem, ziarnem i źródłem. Zachowaj ten wzorzec w nowych obiektach.
+```
+
+**Result:**
+
+```
+Created file C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-schema.instructions.md with 2973 characters
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:39:43Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="create"><details>
+<summary>Tool use: **create**</summary>
+
+create a new file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md`
+
+```markdown
+---
+description: "Pisanie i zmiana procedur ETL RetailDW (etl.Load*) oraz przepływu src → stg → dbo."
+applyTo: "RetailDW/Procedures/**,scripts/dw.ps1"
+---
+
+# RetailDW – ETL
+
+Pełny przepływ i diagram: [retaildw-database.md](../../docs/retaildw-database.md), sekcja 9.
+
+## Przepływ
+
+| Krok | Z | Do | Wykonuje |
+|---|---|---|---|
+| Import CSV | plik CSV | `src.*Raw` | `scripts/dw.ps1 import-p0` / `import-pack` (bez ETL) |
+| Konwersja | `src.*Raw` | `stg.*` | krok 1 procedury `etl.Load*` |
+| Fakt | `stg.*` + `dbo.Dim*` | `dbo.Fact*` | krok 2 procedury `etl.Load*` |
+| Audyt | wynik | `dbo.LoadLog` | wewnątrz procedury |
+
+Warstwy zależą tylko w jednym kierunku: `src` → `stg` → `dbo`. Procedura nie czyta z `dbo.Fact*` w kroku konwersji.
+
+## Wzorzec procedury
+
+Każda nowa procedura `etl.Load<Name>` ma ten sam szkielet:
+
+1. Nagłówek komentarza: cel, kroki, tryb ładowania.
+2. `SET NOCOUNT ON;` i `SET XACT_ABORT ON;`.
+3. Zmienne `@LoadId`, `@RowsRead`, `@RowsLoaded`, `@RowsRejected`.
+4. Wpis w `dbo.LoadLog` ze statusem startowym, `SCOPE_IDENTITY()`.
+5. `BEGIN TRY` … `BEGIN CATCH`: w `CATCH` status `FAILED`, `ERROR_MESSAGE()`, `THROW`.
+6. Liczba odrzuconych = `@RowsRead - @RowsLoaded`. Zapis w `LoadLog`.
+
+## Zasady dobrych praktyk przy pisaniu ETL
+
+- Konwersje tylko przez `TRY_CAST` / `TRY_CONVERT` w kroku `src` → `stg`. Wiersz z błędem nie trafia dalej.
+- Filtr jakości w kroku konwersji wymienia każde pole, które musi być NOT NULL po konwersji.
+- Łączenia z wymiarami: `JOIN` (nie `LEFT JOIN`) tylko świadomie. Brak dopasowania jest liczony jako odrzucony.
+- Miary wyliczaj raz, w procedurze, i zapisuj w fakcie. Stałych biznesowych (np. stawki VAT) nie wpisuj na sztywno w kodzie bez komentarza uzasadniającego. Preferuj tabelę parametrów, jeśli zmiana jest realna.
+- Tryb ładowania: obecnie pełne przeładowanie (`DELETE` + `INSERT`). Dla nowej, dużej tabeli rozważ `TRUNCATE` (bez FK do tabeli) lub inkrementalne ładowanie i zapytaj o wymagania przed zmianą.
+- Nie używaj kursorów ani pętli `WHILE` do transformacji zbiorów.
+- Nie używaj `SELECT *` w `INSERT ... SELECT`. Wypisz kolumny.
+- Każda operacja zapisu w tej samej transakcji co audyt (`XACT_ABORT ON`).
+
+## Import CSV (`scripts/dw.ps1`)
+
+- Nagłówek CSV musi być identyczny z kolumnami w manifeście, w tej samej kolejności.
+- Liczba pól w każdym wierszu musi zgadzać się z nagłówkiem.
+- Liczba wierszy musi zgadzać się z manifestem.
+- Import działa w jednej transakcji dla wszystkich plików.
+- Skrypt nie wypełnia `SourceFile` i nie uruchamia ETL. Nie zakładaj, że te kolumny są wypełnione.
+- Przy zmianie skryptu nie zmieniaj kolejności akcji bez potwierdzenia.
+
+## Pułapki
+
+- Wiersze odrzucone nie są logowane osobno. Zmiana tej zasady wymaga nowego mechanizmu (np. tabeli odrzuceń) i zgody.
+- Brak wiersza `Unknown` (`-1`) w wymiarach. Nie dodawaj go bez decyzji o modelu.
+- Tylko `etl.LoadInventory` nie ma indeksu na `stg`. Przy dodaniu indeksu sprawdź wpływ na czas ładowania.
+```
+
+**Result:**
+
+```
+Created file C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md with 3011 characters
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:39:42Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="create"><details>
+<summary>Tool use: **create**</summary>
+
+create a new file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-sql-authoring.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-sql-authoring.instructions.md`
+
+```markdown
+---
+description: "Pisanie i edycja kodu T-SQL w RetailDW: tabele, procedury, widoki, składnia i komentarze."
+applyTo: "RetailDW/**/*.sql"
+---
+
+# RetailDW – pisanie kodu SQL
+
+Zasada nadrzędna: struktura (schematy, nazwy warstw, lokalizacja plików) zgodna z istniejącym projektem. Składnia, komentarze i wzorce obiektów zgodne z dobrymi praktykami T-SQL. Nie kopiuj wzorców legacy, jeśli są gorsze.
+
+Przewodnik: [sql-style-guide.md](../../docs/sql-style-guide.md). Gdy przewodnik różni się od kodu, obowiązuje ta instrukcja (zgodnie z ustaleniem: struktura z projektu, składnia i praktyki dobre).
+
+## Struktura (zgodna z projektem)
+
+- Schematy: `src`, `stg`, `etl`, `dbo`, `reporting`. Nie wprowadzaj `dwh`, `rpt` ani innych bez decyzji.
+- Jeden obiekt na plik: `Tables/<schema>.<Name>.sql`, `Procedures/etl.Load<Name>.sql`, `Views/reporting.vw_<Name>.sql`.
+- Nowy schemat: plik w `Security/<schema>.sql` i wpis w `RetailDW.sqlproj`, jeśli projekt tego wymaga.
+- Nazwy: PascalCase, po angielsku, w nawiasach kwadratowych: `[dbo].[FactSales]`.
+
+## Składnia (dobre praktyki)
+
+- Słowa kluczowe wielkimi literami. Wcięcia 4 spacje.
+- Każda kolumna w `SELECT` i każdy warunek w `JOIN`/`WHERE` w osobnej linii.
+- Zawsze jawne kolumny. Bez `SELECT *` w widokach, procedurach i `INSERT ... SELECT`.
+- Aliasy krótkie i stałe: `f` (FactSales), `d` (DimDate), `p` (DimProduct), `st` (DimStore). Kolumny przez `AS` w PascalCase.
+- Średnik kończy każde polecenie.
+- Typy: `DECIMAL(p,s)` dla pieniędzy, `INT` dla kluczy wymiarów, `BIGINT` dla kluczy faktów, `DATE` dla dat bez czasu, `DATETIME2(3)` dla znaczników czasu w UTC.
+- Konwersje w warstwie `src` przez `TRY_CAST`/`TRY_CONVERT`. Nie używaj `CAST` na danych tekstowych ze źródła.
+- Unikaj funkcji na kolumnach w `WHERE`, jeśli da się zapisać zakres (`>=`, `<`).
+- Liczby i daty w literałach: daty jako `'yyyy-mm-dd'`, tekst Unicode z prefiksem `N'...'`.
+
+## Nazewnictwo ograniczeń (jawne, zawsze)
+
+| Prefiks | Wzorzec | Przykład |
+|---|---|---|
+| PK | `PK_<Table>` | `PK_FactSales` |
+| FK | `FK_<Table>_<RefTable>` | `FK_FactSales_DimDate` |
+| Unikalność | `UX_<Table>_<Column>` (indeks unikalny) | `UX_DimStore_StoreCode` |
+| Indeks | `IX_<Table>_<Columns>` | `IX_FactSales_DateKey` |
+| Domyślna | `DF_<Table>_<Column>` | `DF_LoadLog_Status` |
+| Check | `CK_<Table>_<Column>` | `CK_DimStore_Channel` |
+
+Nie pozostawiaj nazw generowanych przez SQL Server.
+
+## Komentarze
+
+- Nagłówek `/* ... */` na początku każdego obiektu: cel, ziarno (dla faktów), źródło, tryb ładowania.
+- Komentarz inline tylko przy nieoczywistej logice: stała biznesowa, obejście, filtr statusu, wartość specjalna.
+- Nie komentuj oczywistego kodu. Nie dopisuj komentarzy z tym samym tekstem co kod.
+- Komentarze po angielsku.
+
+## Procedury i widoki
+
+- Procedury: `CREATE PROCEDURE [etl].[Load<Name>]`, `SET NOCOUNT ON;`, `SET XACT_ABORT ON;`, obsługa błędów wg wzorca z instrukcji ETL.
+- Widoki: `CREATE VIEW [reporting].[vw_<Name>]`. Bez zapytań zagnieżdżonych tam, gdzie wystarczy CTE. Każdy widok ma nagłówek z ziarnem.
+- Widok nie zawiera `ORDER BY` (sortowanie należy do zapytania konsumenta), chyba że to wymaga kontraktu raportu.
+- Łączenia w widokach: `JOIN` do wymiarów, `LEFT JOIN` tylko gdy brak wiersza ma być widoczny w wyniku.
+
+## Migracje i zmiany istniejących obiektów
+
+- Zmiana definicji tabeli to zmiana w pliku `Tables/`, nie osobny skrypt `ALTER` w repo, chyba że projekt tego wymaga.
+- Przed zmianą kolumny sprawdź zależności (widoki, procedury) i zaktualizuj je w tym samym zadaniu.
+- Nie zmieniaj nazw istniejących kolumn bez zgody. Mogą być używane w raportach.
+
+## Czego nie robić
+
+- Nie używaj `TRUNCATE` na tabelach z FK wskazującymi na nie.
+- Nie wpisuj na sztywno dat, ścieżek, kont ani wartości środowiskowych.
+- Nie generuj kodu, którego nie da się zweryfikować w projekcie SQL.
+```
+
+**Result:**
+
+```
+Created file C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-sql-authoring.instructions.md with 3892 characters
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:39:45Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="create"><details>
+<summary>Tool use: **create**</summary>
+
+create a new file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-analysis.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-analysis.instructions.md`
+
+```markdown
+---
+description: "Analiza danych i pisanie zapytań raportowych na RetailDW: miary, pułapki, widoki reporting."
+applyTo: "RetailDW/Views/**"
+---
+
+# RetailDW – analiza i raporty
+
+Pełne opisy: [retaildw-database.md](../../docs/retaildw-database.md), sekcje 5, 10 i 12.
+
+## Źródła do raportów
+
+| Pytanie | Użyj |
+|---|---|
+| Sprzedaż dzienna | `reporting.vw_SalesDaily` |
+| Sprzedaż tygodniowa (ISO, Pn–Nd) | `reporting.vw_SalesWeekly` |
+| Marża po stylu i miesiącu | `reporting.vw_MarginAnalysis` |
+| Scorecard SKU | `reporting.vw_ProductPerformance` |
+| Dostępność na półce | `reporting.vw_StockAvailability` |
+| Miesięczny scorecard sklepu | `reporting.vw_StoreScorecard` |
+
+Zapytania analityczne czytają z widoków `reporting`, nie z tabel `stg`/`src`.
+
+## Miary
+
+- `NetAmount` = `GrossAmount / 1.23` (VAT 23%, stała w procedurze). Nie licz VAT samodzielnie.
+- `GrossMargin` = `NetAmount - Quantity * UnitCost`. `UnitCost` jest zapisany w fakcie w chwili ładowania.
+- `Transactions` = liczba różnych `TransactionNo`. Nie sumuj liczby transakcji po wymiarach, które dzielą transakcję.
+- `UnitsPerTransaction` i `AvgBasketValue` liczone są na poziomie sklepu i miesiąca. Nie uśredniaj ich dalej bez wag.
+- Miary addytywne (`Units`, `NetAmount`, `GrossAmount`) sumuj. Wskaźniki (`GrossMarginPct`, `AvailabilityPct`, `SellThroughPct`) licz z sum, nie ze średniej procentów.
+
+## Pułapki
+
+- Stany (`FactInventoryDaily`) to snapshot. Nie sumuj stanów po dniach. Do stanu bieżącego użyj ostatniego `DateKey`.
+- Stany są tylko za bieżący sezon. Porównania rok do roku dla stanów są niemożliwe.
+- `SellThroughPct` liczony za bieżący sezon. Nie zestawiaj go z `UnitsSoldTotal`.
+- `DimStore.SalesAreaM2` to wartość bieżąca. Wskaźniki per m² za przeszłość używają obecnej powierzchni.
+- Sklep online ma `SalesAreaM2 = NULL` i jest wykluczony z `vw_StoreScorecard`.
+- Tydzień ISO: `IsoYear` może różnić się od roku kalendarzowego wokół 1 stycznia. Grupuj po `IsoYear` + `IsoWeek`.
+- Brak wiersza `Unknown` w wymiarach: rekordy bez dopasowania SKU, sklepu lub daty nie są w faktach. Porównuj z `LoadLog.RowsRejected`.
+- Zwroty nie są powiązane kluczem obcym ze sprzedażą. Łącz po `TransactionNo` i `ProductKey`.
+- Wymiary typu 1: historia atrybutów (cena, nazwa, kategoria) nie jest zachowana.
+
+## Zasady pisania zapytań
+
+- Filtruj po `DateKey` (INT) lub po `Date` z `DimDate`. Nie filtruj po funkcjach na kolumnach.
+- Nie wykonuj nieograniczonych zapytań na `FactSales`. Zawsze zawężaj okres lub sklep.
+- Podawaj wynik z jawnymi kolumnami i jednostką (PLN, szt.).
+- Przy każdym wniosku podaj, z którego widoku lub tabeli pochodzi liczba i jakie filtry zastosowano.
+- Przy różnicach między widokami wyjaśnij, czy wynika to z danych, czy z definicji miary.
+```
+
+**Result:**
+
+```
+Created file C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-analysis.instructions.md with 2789 characters
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:04Z)**_
+
+Przed dopisaniem `AGENTS.md` sprawdzam, czy w czterech plikach nie ma twierdzeń, których nie zweryfikowałem. Widzę trzy błędy: `stg.Inventory` ma indeks (a `stg.Returns` nie ma), `RetailDW.sqlproj` nie wymienia plików, a procedury nie wykonują zapisu audytu w jednej transakcji. Poprawiam je.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:06Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md`
+
+```diff
+-- Każda operacja zapisu w tej samej transakcji co audyt (`XACT_ABORT ON`).
++- Procedury mają `XACT_ABORT ON`, ale wpis w `LoadLog` nie jest częścią transakcji ładowania. Przy błędzie status zostaje zaktualizowany w `CATCH`.
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:08Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md`
+
+```diff
+-- Przy zmianie skryptu nie zmieniaj kolejności akcji bez potwierdzenia.
+-
+-## Pułapki
+-
+-- Wiersze odrzucone nie są logowane osobno. Zmiana tej zasady wymaga nowego mechanizmu (np. tabeli odrzuceń) i zgody.
+-- Brak wiersza `Unknown` (`-1`) w wymiarach. Nie dodawaj go bez decyzji o modelu.
+-- Tylko `etl.LoadInventory` nie ma indeksu na `stg`. Przy dodaniu indeksu sprawdź wpływ na czas ładowania.
++## Pułapki
++
++- Wiersze odrzucone nie są logowane osobno. Zmiana tej zasady wymaga nowego mechanizmu (np. tabeli odrzuceń) i zgody.
++- Brak wiersza `Unknown` (`-1`) w wymiarach. Nie dodawaj go bez decyzji o modelu.
++- Indeksy w `stg`: `stg.Sales` i `stg.Inventory` mają indeks na dacie, `stg.Returns` nie ma żadnego. Przy dodaniu indeksu sprawdź wpływ na czas ładowania.
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:05Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-sql-authoring.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-sql-authoring.instructions.md`
+
+```diff
+-- Nowy schemat: plik w `Security/<schema>.sql` i wpis w `RetailDW.sqlproj`, jeśli projekt tego wymaga.
++- Nowy schemat: plik w `Security/<schema>.sql`. `RetailDW.sqlproj` (SDK-style) nie wymienia plików, więc nie dodawaj ich ręcznie.
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-sql-authoring.instructions.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:08Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-sql-authoring.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-sql-authoring.instructions.md`
+
+```diff
+-- Zmiana definicji tabeli to zmiana w pliku `Tables/`, nie osobny skrypt `ALTER` w repo, chyba że projekt tego wymaga.
++- Projekt jest deklaratywny: zmiana definicji tabeli to edycja pliku w `Tables/`, a nie osobny skrypt `ALTER`. Zmiany dla istniejących danych ustal z zespołem przed implementacją.
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-sql-authoring.instructions.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:08Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-analysis.instructions.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-analysis.instructions.md`
+
+```diff
+-- Podawaj wynik z jawnymi kolumnami i jednostką (PLN, szt.).
++- Podawaj wynik z jawnymi kolumnami i jednostką. Jednostka waluty nie jest zapisana w repo, więc nie zakładaj PLN bez potwierdzenia.
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-analysis.instructions.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:16Z)**_
+
+Teraz dopisuję ściągę do `AGENTS.md`, z odsyłaczami do instrukcji.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:16Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md`
+
+```diff
+-- Dane źródłowe: `data/P0/` (CSV i `manifest.json`).
+-
++- Dane źródłowe: `data/P0/` (CSV i `manifest.json`).
++
++## Ściąga RetailDW
++- Przepływ: `src.*Raw` → `stg.*` → `dbo.Fact*` / `dbo.Dim*`. Raporty czytają z `reporting.vw_*`.
++- Procedury: `etl.Load<Name>`, pełne przeładowanie, wpis w `dbo.LoadLog`.
++- Nazwy: PascalCase, po angielsku. Ograniczenia nazywane jawnie: `PK_`, `FK_`, `UX_`, `IX_`, `DF_`, `CK_`.
++- Struktura schematów i plików: zgodna z projektem. Składnia i komentarze: wg dobrych praktyk T-SQL, nie wg wzorców legacy z kodu.
++- Szczegóły obiektów, ETL, pisania SQL i analizy: `.github/instructions/retaildw-*.instructions.md` (ładowane wg typu pliku) oraz [retaildw-database.md](docs/retaildw-database.md).
++- Styl SQL: [sql-style-guide.md](docs/sql-style-guide.md). Gdy różni się od kodu, obowiązuje instrukcja `retaildw-sql-authoring`.
++
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:25Z)**_
+
+Ostatni krok: sprawdzam, czy odsyłacze w plikach istnieją i czy frontmatter jest poprawny.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:41Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="powershell"><details>
+<summary>Tool use: **powershell**</summary>
+
+Verify instruction files and links
+
+```powershell
+cd "C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5"; Get-ChildItem .github\instructions | ForEach-Object { $_.Name; (Get-Content -TotalCount 4 $_.FullName) -join "`n" ; "" }; foreach($l in 'docs\retaildw-database.md','docs\sql-style-guide.md'){ Test-Path $l }; Test-Path .github\..\docs\retaildw-database.md; (Get-Content -Raw .github\instructions\retaildw-etl.instructions.md) -match '\.\./\.\./docs/retaildw-database\.md'; Get-ChildItem -Recurse -File .github | Measure-Object | Select-Object -ExpandProperty Count; (Get-Content .github\instructions\*.md | Measure-Object -Line).Lines
+```
+
+**Result:**
+
+```text
+retaildw-analysis.instructions.md
+---
+description: "Analiza danych i pisanie zapytaÅ„ raportowych na RetailDW: miary, puÅ‚apki, widoki reporting."
+applyTo: "RetailDW/Views/**"
+---
+
+retaildw-etl.instructions.md
+---
+description: "Pisanie i zmiana procedur ETL RetailDW (etl.Load*) oraz przepÅ‚ywu src â†’ stg â†’ dbo."
+applyTo: "RetailDW/Procedures/**,scripts/dw.ps1"
+---
+
+retaildw-schema.instructions.md
+---
+description: "Wyszukiwanie i analiza obiektÃ³w RetailDW: tabele, wymiary, fakty, relacje, widoki."
+applyTo: "RetailDW/Tables/**,RetailDW/Views/**,RetailDW/Procedures/**"
+---
+
+retaildw-sql-authoring.instructions.md
+---
+description: "Pisanie i edycja kodu T-SQL w RetailDW: tabele, procedury, widoki, skÅ‚adnia i komentarze."
+applyTo: "RetailDW/**/*.sql"
+---
+
+True
+True
+True
+True
+4
+171
+<shellId: 32 completed with exit code 0>
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:44Z)**_
+
+Frontmatter i odsyłacze wyglądają poprawnie. Krzaki w polskich znakach to prawdopodobnie efekt domyślnego odczytu w PowerShell 5.1, a nie zapisu. Sprawdzam to narzędziem `view`.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:44Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\.github\instructions\retaildw-etl.instructions.md`
+- view_range: `[1,4]`
+
+**Result:**
+
+```
+---
+description: "Pisanie i zmiana procedur ETL RetailDW (etl.Load*) oraz przepływu src → stg → dbo."
+applyTo: "RetailDW/Procedures/**,scripts/dw.ps1"
+---
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:40:48Z)**_
+
+Pliki są zapisane poprawnie w UTF-8, a krzaki to wynik odczytu w PowerShell 5.1. Pliki zostają bez zmian.
+
+Dodaję także odnotowanie w planie sesji, że etap został wykonany.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:41:03Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="powershell"><details>
+<summary>Tool use: **powershell**</summary>
+
+Note completion status in session plan
+
+```powershell
+$p="C:\Users\teamsharq\.copilot\session-state\e36f14ac-e005-4988-97f3-cc67e4330429\plan.md"; Add-Content -LiteralPath $p -Value "`n## Status`n- Wykonano: cztery pliki w .github/instructions oraz sekcja 'Ściąga RetailDW' w AGENTS.md.`n- Odroczone: weryfikacja applyTo w środowisku użytkownika (pkt 3)."; "ok"
+```
+
+**Result:**
+
+```text
+ok
+<shellId: 33 completed with exit code 0>
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:41:08Z)**_
+
+Gotowe. Struktura jest zgodna z projektem, a składnia i komentarze opisane według dobrych praktyk, bez wzorców legacy.
+
+**Nowe pliki w `.github/instructions/`**
+- [retaildw-schema.instructions.md](.github/instructions/retaildw-schema.instructions.md) (`RetailDW/Tables`, `Views`, `Procedures`): gdzie szukać definicji, model gwiaździsty, klucze i relacje.
+- [retaildw-etl.instructions.md](.github/instructions/retaildw-etl.instructions.md) (`RetailDW/Procedures`, `scripts/dw.ps1`): przepływ `src → stg → dbo`, szkielet procedury z `LoadLog`, zasady importu CSV, pułapki.
+- [retaildw-sql-authoring.instructions.md](.github/instructions/retaildw-sql-authoring.instructions.md) (`RetailDW/**/*.sql`): struktura z projektu, składnia wg dobrych praktyk, jawne nazwy ograniczeń, komentarze, procedury i widoki, czego nie robić.
+- [retaildw-analysis.instructions.md](.github/instructions/retaildw-analysis.instructions.md) (`RetailDW/Views`): który widok do jakiego pytania, poprawne agregacje, pułapki (snapshot stanów, sell-through, ISO week, bieżąca powierzchnia).
+
+**Zmiana w `AGENTS.md`**
+- Dopisana sekcja „Ściąga RetailDW” (przepływ, nazewnictwo, odsyłacze do instrukcji i dokumentacji). Reszta pliku bez zmian.
+
+**Co jest świadomie odmienne od kodu legacy**
+- `DELETE` zamiast `TRUNCATE`, stała `1.23` w kodzie, brak wiersza `-1` w wymiarach, `SELECT *` w części kodu. Instrukcje mówią, żeby nie kopiować tych wzorców. Rozbieżności z `sql-style-guide.md` rozstrzyga `retaildw-sql-authoring`.
+
+**Weryfikacja**
+- Sprawdziłem frontmatter (`description`, `applyTo`) oraz istnienie odsyłaczy do dokumentacji i przewodnika stylu.
+- Nie testowałem, czy Copilot ładuje instrukcje po `applyTo`. Zgodnie z ustaleniem zrobimy to później.
+- Przy tworzeniu plików poprawiłem kilka twierdzeń, których nie zweryfikowałem w kodzie (np. indeksy w `stg`, `sqlproj`, transakcja audytu, waluta).
+
+Pliki `.github/` nie są jeszcze w commicie. Nie commitowałem bez prośby.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:41:14Z)**_
+
+Zadanie zakończone. Zmiany w repo:
+
+- docs/retaildw-database.md: dokumentacja bazy RetailDW (TOC, tabele, wymiary, fakty, procedury, ścieżki, przepływ ETL z diagramem Mermaid, widoki, ograniczenia).
+- .github/instructions/: cztery pliki instrukcji ładowanych warunkowo wg applyTo: retaildw-schema, retaildw-etl, retaildw-sql-authoring (struktura z projektu, składnia wg dobrych praktyk), retaildw-analysis.
+- AGENTS.md: dopisana sekcja "Ściąga RetailDW" z odsyłaczami do instrukcji i dokumentacji.
+
+Zweryfikowano frontmatter instrukcji oraz istnienie odsyłaczy. Nie testowano, czy Copilot ładuje instrukcje po applyTo; zgodnie z ustaleniem zrobisz to później. Nie zacommitowano zmian. Plan zapisano w plan.md w katalogu sesji.
+
+---
+
+_**User (2026-11-17 11:43:50Z)**_
+
+dodaj do sekcji agents.md  odwołania do instrukcji wraz z info kiedy je ładować na wypadek gdyby nie zadziałał applyTo:
+
+przenieś wskazania na  duże pliki dokumentacji do osobnej sekcji i dopisek ze czytaj tylko w ostateczności lub gdy user lub inny kontekst odwołuje się do konkretnej ich części
+
+---
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:43:54Z)**_
+
+Najpierw sprawdzam aktualną treść `AGENTS.md`.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:43:54Z)**_
+
+<tool-use data-tool-type="read" data-tool-name="view"><details>
+<summary>Tool use: **view**</summary>
+
+view the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md.
+
+**Input:**
+
+- path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md`
+
+**Result:**
+
+```
+# Kontekst workspace: hurtownia danych retail (moda)
+Repozytorium zawiera projekt hurtowni danych dla firmy odzieżowej w retailu: projekt SQL `RetailDW`, skrypty ETL, widoki raportowe, dane źródłowe CSV oraz dokumentację.
+
+
+## Rola asystenta
+Jesteś asystentem inżyniera danych i analityka DWH. Odpowiadasz po polsku. Nazwy obiektów, kolumn i kodu piszesz po angielsku, a komentarze w kodzie po angielsku.
+
+
+## Technologia
+- SQL Server 2022, składnia T-SQL.
+- Projekt bazy: `RetailDW/RetailDW.sqlproj` (tabele, procedury, widoki, skrypty post-deployment, bezpieczeństwo).
+- Warstwy: `src` (dane surowe), `stg` (staging), `etl` (procedury ładujące), `dbo` (wymiary i fakty), `reporting` (widoki raportowe).
+- Dane źródłowe: `data/P0/` (CSV i `manifest.json`).
+
+## Ściąga RetailDW
+- Przepływ: `src.*Raw` → `stg.*` → `dbo.Fact*` / `dbo.Dim*`. Raporty czytają z `reporting.vw_*`.
+- Procedury: `etl.Load<Name>`, pełne przeładowanie, wpis w `dbo.LoadLog`.
+- Nazwy: PascalCase, po angielsku. Ograniczenia nazywane jawnie: `PK_`, `FK_`, `UX_`, `IX_`, `DF_`, `CK_`.
+- Struktura schematów i plików: zgodna z projektem. Składnia i komentarze: wg dobrych praktyk T-SQL, nie wg wzorców legacy z kodu.
+- Szczegóły obiektów, ETL, pisania SQL i analizy: `.github/instructions/retaildw-*.instructions.md` (ładowane wg typu pliku) oraz [retaildw-database.md](docs/retaildw-database.md).
+- Styl SQL: [sql-style-guide.md](docs/sql-style-guide.md). Gdy różni się od kodu, obowiązuje instrukcja `retaildw-sql-authoring`.
+
+
+
+## Zasady pracy
+- Nie zgaduj nazw tabel ani kolumn. Sprawdź definicje w `RetailDW/Tables/` lub zapytaj.
+- Zmiany są chirurgiczne: zmieniaj tylko to, o co poproszono, i aktualizuj powiązaną dokumentację.
+- Nie łącz się z bazą, nie uruchamiaj skryptów ani nie commituj bez wyraźnej prośby.
+- Jeśli brakuje informacji potrzebnych do wykonania zadania, zapytaj przed wygenerowaniem kodu.
+- Wynik ma być gotowy do użycia: poprawny T-SQL dla SQL Server 2022, bez zbędnych kome
+… (output truncated)
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:44:06Z)**_
+
+Zmieniam sekcję „Ściąga RetailDW”: dopisuję tabelę instrukcji z warunkami ładowania (fallback), a odsyłacze do dużych dokumentów przenoszę do osobnej sekcji z zasadą „czytaj tylko w ostateczności”.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:44:06Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md`
+
+```diff
+-## Ściąga RetailDW
+-- Przepływ: `src.*Raw` → `stg.*` → `dbo.Fact*` / `dbo.Dim*`. Raporty czytają z `reporting.vw_*`.
+-- Procedury: `etl.Load<Name>`, pełne przeładowanie, wpis w `dbo.LoadLog`.
+-- Nazwy: PascalCase, po angielsku. Ograniczenia nazywane jawnie: `PK_`, `FK_`, `UX_`, `IX_`, `DF_`, `CK_`.
+-- Struktura schematów i plików: zgodna z projektem. Składnia i komentarze: wg dobrych praktyk T-SQL, nie wg wzorców legacy z kodu.
+-- Szczegóły obiektów, ETL, pisania SQL i analizy: `.github/instructions/retaildw-*.instructions.md` (ładowane wg typu pliku) oraz [retaildw-database.md](docs/retaildw-database.md).
+-- Styl SQL: [sql-style-guide.md](docs/sql-style-guide.md). Gdy różni się od kodu, obowiązuje instrukcja `retaildw-sql-authoring`.
++## Ściąga RetailDW
++- Przepływ: `src.*Raw` → `stg.*` → `dbo.Fact*` / `dbo.Dim*`. Raporty czytają z `reporting.vw_*`.
++- Procedury: `etl.Load<Name>`, pełne przeładowanie, wpis w `dbo.LoadLog`.
++- Nazwy: PascalCase, po angielsku. Ograniczenia nazywane jawnie: `PK_`, `FK_`, `UX_`, `IX_`, `DF_`, `CK_`.
++- Struktura schematów i plików: zgodna z projektem. Składnia i komentarze: wg dobrych praktyk T-SQL, nie wg wzorców legacy z kodu.
++- Gdy różni się od kodu, obowiązuje instrukcja `retaildw-sql-authoring`.
++
++### Instrukcje warunkowe (`.github/instructions/`)
++
++Ładowane automatycznie wg `applyTo`. Jeśli nie zostały załadowane, a zadanie dotyczy poniższego obszaru, wczytaj je ręcznie.
++
++| Instrukcja | Wczytaj, gdy zadanie dotyczy | Fallback (ręcznie, gdy applyTo nie zadziałało) |
++|---|---|---|
++| [retaildw-schema.instructions.md](.github/instructions/retaildw-schema.instructions.md) | Wyszukiwania obiektów, tabel, relacji, kluczy | Pliki w `RetailDW/Tables/`, `Views/`, `Procedures/` |
++| [retaildw-etl.instructions.md](.github/instructions/retaildw-etl.instructions.md) | Procedur `etl.Load*`, przepływu `src → stg → dbo`, `scripts/dw.ps1` | `RetailDW/Procedures/**`, `scripts/dw.ps1` |
++| [retaildw-sql-authoring.instructions.md](.github/instructions/retaildw-sql-authoring.instructions.md) | Pisania lub edycji dowolnego kodu SQL w `RetailDW/` | `RetailDW/**/*.sql` |
++| [retaildw-analysis.instructions.md](.github/instructions/retaildw-analysis.instructions.md) | Analiz, zapytań raportowych, miar, widoków `reporting` | `RetailDW/Views/**` |
++
++### Duże dokumenty (czytaj tylko w ostateczności)
++
++Czytaj poniższe pliki wyłącznie wtedy, gdy instrukcje warunkowe nie wystarczą, albo gdy użytkownik lub kontekst odwołuje się do konkretnej ich części. Czytaj wtedy tylko wskazany fragment (nagłówek sekcji), nie cały plik.
++
++| Dokument | Rozmiar | Kiedy czytać | Sekcje |
++|---|---|---|---|
++| [retaildw-database.md](docs/retaildw-database.md) | ~476 linii | Pytania o pełne kolumny, indeksy lub diagram przepływu ETL, których nie ma w instrukcjach | 4 Wymiary, 5 Fakty, 7 Tabele techniczne, 9 Przepływ ETL, 10 Widoki, 12 Ograniczenia |
++| [sql-style-guide.md](docs/sql-style-guide.md) | ~333 linie | Pytania o historyczne przykłady DDL, SELECT, procedur i widoków | Przykłady (sekcja „Przykłady”) |
++
++Uwaga: `sql-style-guide.md` opisuje konwencje legacy (`dwh`, `rpt`, `usp_Etl_*`). Nie stosuj jego przykładów bez sprawdzenia `retaildw-sql-authoring`.
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:44:11Z)**_
+
+Sprawdzam, czy odsyłacze i liczby linii w tabeli są poprawne.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:44:16Z)**_
+
+<tool-use data-tool-type="shell" data-tool-name="powershell"><details>
+<summary>Tool use: **powershell**</summary>
+
+Verify link targets and line counts
+
+```powershell
+cd "C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5"; (Get-Content docs\retaildw-database.md).Count; (Get-Content docs\sql-style-guide.md).Count; foreach($p in '.github\instructions\retaildw-schema.instructions.md','.github\instructions\retaildw-etl.instructions.md','.github\instructions\retaildw-sql-authoring.instructions.md','.github\instructions\retaildw-analysis.instructions.md','docs\retaildw-database.md','docs\sql-style-guide.md','scripts\dw.ps1'){ "$p " + (Test-Path $p) }; Select-String -Path docs\sql-style-guide.md -Pattern '^## Przykłady|^### Przykłady' | ForEach-Object { $_.LineNumber }
+```
+
+**Result:**
+
+```text
+475
+332
+.github\instructions\retaildw-schema.instructions.md True
+.github\instructions\retaildw-etl.instructions.md True
+.github\instructions\retaildw-sql-authoring.instructions.md True
+.github\instructions\retaildw-analysis.instructions.md True
+docs\retaildw-database.md True
+docs\sql-style-guide.md True
+scripts\dw.ps1 True
+94
+<shellId: 34 completed with exit code 0>
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:44:20Z)**_
+
+Liczby linii w tabeli są przybliżone (475 i 332 zamiast 476 i 333), więc poprawiam je, a sekcja „Przykłady” w przewodniku jest w linii 94, nie w „Przykłady” bez nagłówka. Nazwa sekcji zgadza się, więc zostawiam ją.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:44:20Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md`
+
+```diff
+-| [retaildw-database.md](docs/retaildw-database.md) | ~476 linii |
++| [retaildw-database.md](docs/retaildw-database.md) | ~475 linii |
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:44:21Z)**_
+
+<tool-use data-tool-type="write" data-tool-name="edit"><details>
+<summary>Tool use: **edit**</summary>
+
+edit the file at C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md.
+
+Path: `C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md`
+
+```diff
+-| [sql-style-guide.md](docs/sql-style-guide.md) | ~333 linie |
++| [sql-style-guide.md](docs/sql-style-guide.md) | ~332 linie |
+```
+
+**Result:**
+
+```
+File C:\Users\teamsharq\Desktop\infoshare-silkycoders-sql-ai-5\AGENTS.md updated with changes.
+```
+</details></tool-use>
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:44:30Z)**_
+
+Zmiany w `AGENTS.md` są gotowe i zweryfikowane. Odsyłacze wskazują na istniejące pliki, a liczby linii są poprawione.
+
+_**Agent (Anthropic/claude-haiku-5-5 2026-11-17 11:44:30Z)**_
+
+Zaktualizowano AGENTS.md:
+
+- Sekcja "Ściąga RetailDW" zawiera teraz tabelę czterech instrukcji z warunkami, kiedy je wczytać, oraz fallback (ścieżki plików) na wypadek, gdyby applyTo nie zadziałało.
+- Odsyłacze do dużych dokumentów przeniesiono do osobnej sekcji "Duże dokumenty (czytaj tylko w ostateczności)". Zawiera ona zasadę czytania tylko przy braku odpowiedzi w instrukcjach lub gdy użytkownik odwołuje się do konkretnej części, z listą sekcji dla `retaildw-database.md` i `sql-style-guide.md`.
+- Dodano ostrzeżenie, że `sql-style-guide.md` opisuje konwencje legacy.
+
+Odsyłacze i ścieżki zweryfikowano. Zmiany nie są zacommitowane.

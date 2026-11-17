@@ -12,6 +12,36 @@ Jesteś asystentem inżyniera danych i analityka DWH. Odpowiadasz po polsku. Naz
 - Warstwy: `src` (dane surowe), `stg` (staging), `etl` (procedury ładujące), `dbo` (wymiary i fakty), `reporting` (widoki raportowe).
 - Dane źródłowe: `data/P0/` (CSV i `manifest.json`).
 
+## Ściąga RetailDW
+- Przepływ: `src.*Raw` → `stg.*` → `dbo.Fact*` / `dbo.Dim*`. Raporty czytają z `reporting.vw_*`.
+- Procedury: `etl.Load<Name>`, pełne przeładowanie, wpis w `dbo.LoadLog`.
+- Nazwy: PascalCase, po angielsku. Ograniczenia nazywane jawnie: `PK_`, `FK_`, `UX_`, `IX_`, `DF_`, `CK_`.
+- Struktura schematów i plików: zgodna z projektem. Składnia i komentarze: wg dobrych praktyk T-SQL, nie wg wzorców legacy z kodu.
+- Gdy różni się od kodu, obowiązuje instrukcja `retaildw-sql-authoring`.
+
+### Instrukcje warunkowe (`.github/instructions/`)
+
+Ładowane automatycznie wg `applyTo`. Jeśli nie zostały załadowane, a zadanie dotyczy poniższego obszaru, wczytaj je ręcznie.
+
+| Instrukcja | Wczytaj, gdy zadanie dotyczy | Fallback (ręcznie, gdy applyTo nie zadziałało) |
+|---|---|---|
+| [retaildw-schema.instructions.md](.github/instructions/retaildw-schema.instructions.md) | Wyszukiwania obiektów, tabel, relacji, kluczy | Pliki w `RetailDW/Tables/`, `Views/`, `Procedures/` |
+| [retaildw-etl.instructions.md](.github/instructions/retaildw-etl.instructions.md) | Procedur `etl.Load*`, przepływu `src → stg → dbo`, `scripts/dw.ps1` | `RetailDW/Procedures/**`, `scripts/dw.ps1` |
+| [retaildw-sql-authoring.instructions.md](.github/instructions/retaildw-sql-authoring.instructions.md) | Pisania lub edycji dowolnego kodu SQL w `RetailDW/` | `RetailDW/**/*.sql` |
+| [retaildw-analysis.instructions.md](.github/instructions/retaildw-analysis.instructions.md) | Analiz, zapytań raportowych, miar, widoków `reporting` | `RetailDW/Views/**` |
+
+### Duże dokumenty (czytaj tylko w ostateczności)
+
+Czytaj poniższe pliki wyłącznie wtedy, gdy instrukcje warunkowe nie wystarczą, albo gdy użytkownik lub kontekst odwołuje się do konkretnej ich części. Czytaj wtedy tylko wskazany fragment (nagłówek sekcji), nie cały plik.
+
+| Dokument | Rozmiar | Kiedy czytać | Sekcje |
+|---|---|---|---|
+| [retaildw-database.md](docs/retaildw-database.md) | ~475 linii | Pytania o pełne kolumny, indeksy lub diagram przepływu ETL, których nie ma w instrukcjach | 4 Wymiary, 5 Fakty, 7 Tabele techniczne, 9 Przepływ ETL, 10 Widoki, 12 Ograniczenia |
+| [sql-style-guide.md](docs/sql-style-guide.md) | ~332 linie | Pytania o historyczne przykłady DDL, SELECT, procedur i widoków | Przykłady (sekcja „Przykłady”) |
+
+Uwaga: `sql-style-guide.md` opisuje konwencje legacy (`dwh`, `rpt`, `usp_Etl_*`). Nie stosuj jego przykładów bez sprawdzenia `retaildw-sql-authoring`.
+
+
 
 ## Zasady pracy
 - Nie zgaduj nazw tabel ani kolumn. Sprawdź definicje w `RetailDW/Tables/` lub zapytaj.
