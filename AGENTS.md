@@ -29,6 +29,8 @@ Jesteś asystentem inżyniera danych i analityka DWH. Odpowiadasz po polsku. Naz
 | [retaildw-etl.instructions.md](.github/instructions/retaildw-etl.instructions.md) | Procedur `etl.Load*`, przepływu `src → stg → dbo`, `scripts/dw.ps1` | `RetailDW/Procedures/**`, `scripts/dw.ps1` |
 | [retaildw-sql-authoring.instructions.md](.github/instructions/retaildw-sql-authoring.instructions.md) | Pisania lub edycji dowolnego kodu SQL w `RetailDW/` | `RetailDW/**/*.sql` |
 | [retaildw-analysis.instructions.md](.github/instructions/retaildw-analysis.instructions.md) | Analiz, zapytań raportowych, miar, widoków `reporting` | `RetailDW/Views/**` |
+| [nordvik-metryki.instructions.md](.github/instructions/nordvik-metryki.instructions.md) | Pytań o definicje i liczenie metryk (sprzedaż, marża, zapas, zwroty, kalendarz) | `docs/slownik-metryk.md` (sekcje według metryki) |
+| [nordvik-kontekst-biznesowy.instructions.md](.github/instructions/nordvik-kontekst-biznesowy.instructions.md) | Interpretacji wyników: sklepy, asortyment, sezony, kanały, ograniczenia danych | `docs/nordvik-opis-firmy.md` (sekcje z tabeli w instrukcji) |
 
 ### Duże dokumenty (czytaj tylko w ostateczności)
 
@@ -38,6 +40,10 @@ Czytaj poniższe pliki wyłącznie wtedy, gdy instrukcje warunkowe nie wystarcz�
 |---|---|---|---|
 | [retaildw-database.md](docs/retaildw-database.md) | ~475 linii | Pytania o pełne kolumny, indeksy lub diagram przepływu ETL, których nie ma w instrukcjach | 4 Wymiary, 5 Fakty, 7 Tabele techniczne, 9 Przepływ ETL, 10 Widoki, 12 Ograniczenia |
 | [sql-style-guide.md](docs/sql-style-guide.md) | ~332 linie | Pytania o historyczne przykłady DDL, SELECT, procedur i widoków | Przykłady (sekcja „Przykłady”) |
+| [slownik-metryk.md](docs/slownik-metryk.md) | ~111 linii | Pytania o dokładną definicję metryki, której nie ma w `nordvik-metryki` | Nagłówek metryki (np. „Sprzedaż”, „Rentowność”, „Zapas”, „Zwroty”, „Kalendarz”), „Mapowanie nazw” |
+| [nordvik-opis-firmy.md](docs/nordvik-opis-firmy.md) | ~344 linie | Pytania o cele, rytm pracy, sezony, rolę firmy, którego nie ma w `nordvik-kontekst-biznesowy` | Sekcje 2–8 według tabeli w instrukcji; 9 (Data Science) i 10 (słownik) tylko w zadaniach DS lub przy nieznanym pojęciu |
+
+Uwaga: `slownik-metryk.md` opisuje wariant PostgreSQL (`dw.*`, snake_case) i nie odpowiada nazwom w repo SQL Server. Mapowanie jest w jego końcowej sekcji. Wariant `databases/RetailDW-postgres/` nie występuje w tym repo.
 
 Uwaga: `sql-style-guide.md` opisuje konwencje legacy (`dwh`, `rpt`, `usp_Etl_*`). Nie stosuj jego przykładów bez sprawdzenia `retaildw-sql-authoring`.
 
