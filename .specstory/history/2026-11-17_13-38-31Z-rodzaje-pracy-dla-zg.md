@@ -4714,3 +4714,9 @@ Analyzing your answers...
 _**Agent (anthropic/Anthropic/claude-sonnet-5-5)**_
 
 Skill `analiza-danych` zostaje bez zmian. Pliki są w .github/skills/analiza-danych/, a wywołasz go przez `/analiza-danych` z treścią zgłoszenia.
+
+---
+
+_**User (2026-11-17 14:24:57Z)**_
+
+niech skill zapisuje status w handoffie jako emoji dla łepszej widocznośći ( dodaj legende )

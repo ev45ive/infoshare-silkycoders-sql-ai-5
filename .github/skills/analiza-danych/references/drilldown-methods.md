@@ -41,7 +41,7 @@ H<n>: <twierdzenie, np. "spadek sklepów wynika z kategorii Kurtki">
 Test: <zapytanie/metoda, zakres, koszt>
 Dowód potwierdza, jeśli: <warunek>
 Dowód obala, jeśli: <warunek>
-Status: hipoteza / potwierdzona / obalona / niezweryfikowana
+Status: 💭 hipoteza / 🟢 potwierdzona / 🔴 obalona / ❔ niezweryfikowana (legenda w szablonie handoffu)
 Źródło: <zapytanie, plik>
 ```
 

@@ -40,6 +40,8 @@ Pytania wielosekcyjne (np. zawartość raportu + luki + plik) łącz w jednym wy
 
 ## Aktualizacja handoffu po kroku
 
+Statusy zapisuj jako emoji z legendą z [handoff](../assets/handoff-template.md) (⬜ 🔄 ✅ ⏭️ ⛔ dla kroków, 💭 🟢 🔴 ❔ dla hipotez, ⚠️ dla uwag); legenda zostaje w pliku handoffu.
+
 Wymagane pola: data/stan, status kroków, nowe odkrycia (z kodem źródła: `K` kod, `D` dane, `W` wyniki, `T` trend, `S` drill-down), otwarte pytania, zapisane SQL. Szczegóły: [handoff](../assets/handoff-template.md).
 
 ## Weryfikacja przed wysłaniem podsumowania

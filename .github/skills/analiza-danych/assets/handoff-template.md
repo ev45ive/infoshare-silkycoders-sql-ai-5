@@ -3,6 +3,24 @@
 - **Zgłoszenie:** <link do pliku zgłoszenia/analizy>
 - **Baza:** <serwer/baza, zakres uprawnień, np. tylko SELECT z ograniczeniami>
 - **Ostatnia aktualizacja:** <data>, po kroku <n>
+- **Status analizy:** <emoji z legendy, np. 🔄 w toku>
+
+## Legenda statusów
+
+Stosuj emoji zawsze razem z krótką nazwą statusu (kolumna musi być czytelna bez emoji).
+
+| Emoji | Status | Dotyczy | Znaczenie |
+|---|---|---|---|
+| ⬜ | do wyboru | krok | zaproponowany, jeszcze niezaakceptowany |
+| 🔄 | w toku | krok, analiza | wykonywany lub otwarta analiza |
+| ✅ | zrobiony | krok, analiza | wykonany, wynik i źródło zapisane w odkryciach |
+| ⏭️ | pominięty | krok | świadoma decyzja użytkownika, powód w sekcji Luki |
+| ⛔ | zablokowany | krok | brak dostępu, danych lub decyzji; powód w Otwartych pytaniach |
+| 💭 | hipoteza | hipoteza | sformułowana, bez testu |
+| 🟢 | potwierdzona | hipoteza | test potwierdził, dowód w Źródle |
+| 🔴 | obalona | hipoteza | test obalił, dowód w Źródle |
+| ❔ | niezweryfikowana | hipoteza | test niemożliwy lub niewykonany (np. dane spoza hurtowni) |
+| ⚠️ | uwaga | odkrycie, krok | rozbieżność lub ryzyko wymagające decyzji |
 
 ## Cel
 
@@ -12,10 +30,11 @@
 
 | # | Krok | Status | Wynik |
 |---|---|---|---|
-| 1 | <np. Przegląd kodu> | zrobiony / w toku / do wyboru / pominięty | <odnośnik do odkryć: K1-K3> |
-| 2 | <np. Stan danych: LoadLog> | | <D1-D2> |
+| 1 | <np. Przegląd kodu> | ✅ zrobiony | <odnośnik do odkryć: K1-K3> |
+| 2 | <np. Stan danych: LoadLog> | 🔄 w toku | <D1-D2> |
+| 3 | <np. Cross-check> | ⬜ do wyboru | |
 
-Statusy: do wyboru, w toku, zrobiony, pominięty, zablokowany.
+Statusy: ⬜ do wyboru, 🔄 w toku, ✅ zrobiony, ⏭️ pominięty, ⛔ zablokowany (legenda wyżej).
 
 ## Odkrycia (ze źródłem)
 
@@ -41,7 +60,7 @@ Kody: **K** kod/definicje, **D** dane/stan, **W** wyniki główne, **T** trend, 
 
 | # | Hipoteza | Test | Status | Źródło |
 |---|---|---|---|---|
-| H1 | <twierdzenie> | <metoda> | hipoteza / potwierdzona / obalona / niezweryfikowana | |
+| H1 | <twierdzenie> | <metoda> | 💭 hipoteza / 🟢 potwierdzona / 🔴 obalona / ❔ niezweryfikowana | |
 
 ## Decyzje
 
@@ -65,4 +84,4 @@ Krok <n> (<nazwa>):
 
 ## Luki / niewykonane kroki
 
-- <krok niewykonany, powód, konsekwencja dla raportu>
+- ⏭️ <krok pominięty lub ⛔ zablokowany, powód, konsekwencja dla raportu>
